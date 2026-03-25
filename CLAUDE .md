@@ -94,21 +94,24 @@ src/
 ## Design system
 
 ### Aesthetic
-Chrome liquid + deep black. Y2K urban latino, premium production feel.
-Extension of the Piso 12 logo identity: liquid chrome 3D on absolute black + 4-point chrome stars.
-NEVER hardcode hex values in components — always use theme tokens.
+Dark/light split. Hero, Countdown, Footer are deep black — immersive, cinematic.
+Lineup, Tickets, Venue flip to clean white — editorial, high-contrast.
+Red accent bridges both. Mix-blend-mode screen on dark, multiply on light.
 
-### Color tokens
-| Token | Value | Tailwind class |
-|-------|-------|----------------|
-| void | #060608 | bg-void / text-void |
-| surface | #0E0E12 | bg-surface |
-| surface-2 | #16161C | bg-surface-2 |
-| chrome | #C8C8D4 | text-chrome |
-| chrome-bright | #EEEEF5 | text-chrome-bright |
-| chrome-dim | #888896 | text-chrome-dim |
-| accent-red | #E8173A | text-accent-red / bg-accent-red |
-| accent-yellow | #F5C842 | text-accent-yellow / bg-accent-yellow |
+### Color tokens — ALWAYS use theme tokens, NEVER hardcode hex
+| Token | Value | Tailwind class | Used in |
+|-------|-------|----------------|---------|
+| void | #060608 | bg-void | hero, countdown, footer |
+| surface-dark | #0E0E12 | bg-surface-dark | dark cards |
+| background | #FFFFFF | bg-background | lineup, tickets, venue |
+| surface-light | #F5F5F5 | bg-surface-light | light cards |
+| foreground-dark | #EEEEF5 | text-foreground-dark | text on dark sections |
+| foreground-light | #0A0A0A | text-foreground-light | text on light sections |
+| accent | #E8173A | text-accent / bg-accent | both sections |
+| accent-foreground | #FFFFFF | text-accent-foreground | text on accent bg |
+| chrome | #C8C8D4 | text-chrome | secondary text on dark |
+| border-dark | rgba(200,200,212,0.12) | inline var(--color-border-dark) | borders on dark |
+| border-light | rgba(0,0,0,0.1) | inline var(--color-border-light) | borders on light |
 
 ### Typography tokens
 | Token | Font | Usage |
@@ -117,81 +120,11 @@ NEVER hardcode hex values in components — always use theme tokens.
 | font-heading | Barlow Condensed, sans-serif | Sections, dates, labels |
 | font-body | Barlow, sans-serif | Body, descriptions |
 
-### tailwind.config.mjs
-```js
-export default {
-  content: ['./src/**/*.{astro,tsx,ts}'],
-  theme: {
-    extend: {
-      colors: {
-        void: '#060608',
-        surface: '#0E0E12',
-        'surface-2': '#16161C',
-        chrome: '#C8C8D4',
-        'chrome-bright': '#EEEEF5',
-        'chrome-dim': '#888896',
-        'accent-red': '#E8173A',
-        'accent-yellow': '#F5C842',
-      },
-      fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        heading: ['Barlow Condensed', 'sans-serif'],
-        body: ['Barlow', 'sans-serif'],
-      },
-    },
-  },
-}
-```
-
-### global.css
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Barlow+Condensed:wght@300;400;700;900&family=Barlow:wght@300;400&display=swap');
-
-:root {
-  --color-void: #060608;
-  --color-surface: #0E0E12;
-  --color-surface-2: #16161C;
-  --color-chrome: #C8C8D4;
-  --color-chrome-bright: #EEEEF5;
-  --color-chrome-dim: #888896;
-  --color-accent-red: #E8173A;
-  --color-accent-yellow: #F5C842;
-  --color-border: rgba(200,200,212,0.12);
-}
-
-html { scroll-behavior: smooth; }
-body { background: var(--color-void); color: var(--color-chrome); overflow-x: hidden; }
-
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--color-void); }
-::-webkit-scrollbar-thumb { background: var(--color-chrome-dim); border-radius: 2px; }
-
-.tabular-nums { font-variant-numeric: tabular-nums; }
-.chrome-asset { mix-blend-mode: screen; }
-```
-
----
-
-## Assets
-First phase uses placeholders for all images.
-When real assets are provided, all PNGs will have solid black backgrounds —
-use mix-blend-mode: screen so black becomes transparent on dark layouts.
-
-Expected assets (placeholders for now):
-- Piso 12 logo (chrome version) — nav + hero
-- Piso 12 logo (mono version) — footer
-- Chrome sparkle decorations — hero
-- Artist photo (Ñejo) — lineup section
-
-```tsx
-// When real assets arrive, always apply:
-<img src="/images/logo.png" className="chrome-asset" />
-// chrome-asset = mix-blend-mode: screen
-```
+### Assets
+- Logo: /assets/brand/logo-chrome.png — dark sections: mix-blend-mode screen; light: multiply
+- Sparkles: /assets/decorations/sparkle-a.png, sparkle-b.png — mix-blend-mode: screen (hero)
+- Artist: /assets/artist/nejo.jpg — mix-blend-mode: multiply (light lineup section)
+- Video: /assets/videos/pitbull_chain.mp4 — hero background, autoplay muted loop
 
 ---
 

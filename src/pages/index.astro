@@ -1,0 +1,32 @@
+---
+import Layout from '../ui/layouts/Layout.astro';
+import { HeroSection } from '../ui/components/Hero/HeroSection.js';
+import { CountdownTimer } from '../ui/components/Countdown/CountdownTimer.js';
+import { LineupSection } from '../ui/components/Lineup/LineupSection.js';
+import { TicketsSection } from '../ui/components/Tickets/TicketsSection.js';
+import { VenueSection } from '../ui/components/Venue/VenueSection.js';
+import { Footer } from '../ui/components/Footer/Footer.js';
+---
+
+<Layout>
+  <main>
+    <!-- Hero: Three.js + video — client:only to avoid SSR -->
+    <HeroSection client:only="react" />
+
+    <!-- Countdown: needs runtime Date, stays dark -->
+    <CountdownTimer client:only="react" />
+
+    <!-- Gradient transition: dark void → white background -->
+    <div
+      aria-hidden="true"
+      style="height: 120px; background: linear-gradient(to bottom, var(--color-void), var(--color-background));"
+    ></div>
+
+    <!-- Light sections — hydrate on scroll -->
+    <LineupSection client:visible />
+    <TicketsSection client:visible />
+    <VenueSection client:visible />
+  </main>
+
+  <Footer client:visible />
+</Layout>

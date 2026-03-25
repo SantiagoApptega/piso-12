@@ -1,0 +1,94 @@
+---
+import '../../styles/global.css';
+import { EVENT } from '../../domain/constants/index.js';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+  jsonLd?: Record<string, unknown>;
+}
+
+const {
+  title = 'Ñejo El Broko en Pasto — 25 de Abril | Piso 12 Perreo',
+  description = 'Ñejo El Broko en vivo. 25 de Abril, C.E. Andino, Pasto. Boletas en mundoboletos.com',
+  ogImage = '/images/og-cover.jpg',
+  canonicalURL = Astro.url.href,
+  jsonLd,
+} = Astro.props;
+
+const eventSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicEvent',
+  name: EVENT.name,
+  startDate: EVENT.dateISO,
+  location: {
+    '@type': 'Place',
+    name: EVENT.venue,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: EVENT.venueAddress,
+      addressLocality: 'Pasto',
+      addressRegion: 'Nariño',
+      addressCountry: 'CO',
+    },
+  },
+  performer: {
+    '@type': 'MusicGroup',
+    name: EVENT.artist,
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: EVENT.presenter,
+    telephone: EVENT.contacts[0],
+  },
+  url: EVENT.ticketUrl,
+  offers: {
+    '@type': 'Offer',
+    url: EVENT.ticketUrl,
+    priceCurrency: 'COP',
+    availability: 'https://schema.org/InStock',
+  },
+  image: ogImage,
+  description: description,
+};
+
+const schemaData = jsonLd ?? eventSchema;
+---
+
+<!doctype html>
+<html lang="es" class="bg-void">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site ?? Astro.url).href} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="es_CO" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site ?? Astro.url).href} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- JSON-LD Event Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </head>
+  <body class="bg-void text-foreground-dark font-body antialiased">
+    <slot />
+  </body>
+</html>

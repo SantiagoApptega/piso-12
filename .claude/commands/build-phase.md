@@ -1,0 +1,1 @@
+Run pnpm build silently. If there are TypeScript or lint errors, fix ALL of them before reporting back. Only report when build passes clean. Never ask for help — resolve errors autonomously using the patterns in CLAUDE.md.

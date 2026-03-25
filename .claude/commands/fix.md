@@ -1,0 +1,1 @@
+Run pnpm build and capture all output. Read every TypeScript, lint, and build error carefully. Fix ALL errors one by one. Never use `any`, `@ts-ignore`, or type casting as a workaround — fix the actual type issue. Do not stop until `pnpm build` passes with zero errors and zero warnings.
