@@ -55,3 +55,19 @@ body {
 .asset-multiply {
   mix-blend-mode: multiply;
 }
+
+/* Hero text entrance */
+.fade-in-hero {
+  animation: fadeInHero 1s ease forwards;
+}
+
+@keyframes fadeInHero {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -3,9 +3,6 @@ import { SectionHeading } from '../shared/SectionHeading.js';
 import { EVENT } from '../../../domain/constants/index.js';
 
 export function VenueSection() {
-  const mapsQuery = encodeURIComponent(`${EVENT.venue}, ${EVENT.venueAddress}`);
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
-
   return (
     <SectionWrapper id="venue" className="py-24 md:py-32 px-6 bg-background">
       <div className="max-w-5xl mx-auto">
@@ -16,29 +13,18 @@ export function VenueSection() {
           scheme="light"
         />
 
-        {/* Map placeholder */}
-        <div
-          className="w-full aspect-video bg-surface-light flex items-center justify-center mb-8"
-          style={{ border: '1px solid var(--color-border-light)' }}
-          aria-label={`Mapa de ${EVENT.venue}`}
-        >
-          <div className="text-center">
-            <p className="font-heading font-black text-lg tracking-widest uppercase text-foreground-light/40 mb-4">
-              {EVENT.venue}
-            </p>
-            <p className="font-body font-light text-sm text-foreground-light/40 mb-6">
-              {EVENT.venueAddress}
-            </p>
-            <a
-              href={mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-heading text-xs tracking-[0.25em] uppercase text-accent hover:text-foreground-light transition-colors duration-200 focus:outline-none focus:underline"
-              aria-label={`Ver ${EVENT.venue} en Google Maps`}
-            >
-              Ver en Google Maps →
-            </a>
-          </div>
+        {/* Google Maps embed */}
+        <div className="w-full mb-8 overflow-hidden" style={{ border: '1px solid var(--color-border-light)' }}>
+          <iframe
+            src="https://maps.google.com/maps?q=1.216507,-77.28956&z=17&output=embed"
+            width="100%"
+            height="400"
+            style={{ border: 0, filter: 'grayscale(20%)' }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Centro de Eventos Andino, Pasto"
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
