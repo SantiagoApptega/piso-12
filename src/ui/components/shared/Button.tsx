@@ -19,8 +19,8 @@ const VARIANT_CLASSES: Record<
   Record<NonNullable<ButtonProps['scheme']>, string>
 > = {
   primary: {
-    dark: 'bg-accent text-accent-foreground hover:opacity-90 focus:ring-accent active:scale-95',
-    light: 'bg-accent text-accent-foreground hover:opacity-90 focus:ring-accent active:scale-95',
+    dark: 'bg-accent text-accent-foreground font-black hover:opacity-90 focus:ring-accent active:scale-95',
+    light: 'bg-accent text-accent-foreground font-black hover:opacity-90 focus:ring-accent active:scale-95',
   },
   secondary: {
     dark: 'border border-chrome text-foreground-dark hover:border-foreground-dark hover:text-foreground-dark focus:ring-chrome active:scale-95',

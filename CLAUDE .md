@@ -10,7 +10,7 @@ Static promotional site — no auth, no CMS, no e-commerce.
 - Presenter: Piso 12 Perreo
 - Date: 25 de Abril — 9:00 PM COT
 - ISO: 2026-04-25T21:00:00-05:00
-- Venue: C.E. Andino — Calle 11 # 38-91, frente a Unicentro, Pasto, Nariño
+- Venue: Centro de eventos ANDINO — Calle 11 # 38-91, frente a Unicentro, Pasto, Nariño
 - Tickets: mundoboletos.com
 - Contact: 305-206-5963 / 317-686-7949
 - Guests: RESET (artista invitado), EWOOD, ORDD
@@ -145,7 +145,7 @@ Red accent bridges both. Mix-blend-mode screen on dark, multiply on light.
 - "PISO 12 PERREO PRESENTA" — font-heading, tracking-[0.3em], text-chrome-dim
 - "ÑEJO" — font-display italic, clamp(80px, 18vw, 200px), text-chrome-bright
 - "EL BROKO" — font-heading 900, clamp(20px, 5vw, 56px), tracking-[0.2em]
-- "25 DE ABRIL · C.E. ANDINO · PASTO" — font-body 300, tracking-[0.25em], text-chrome-dim
+- "25 DE ABRIL · Centro de eventos ANDINO · PASTO" — font-body 300, tracking-[0.25em], text-chrome-dim
 - CTA "COMPRAR BOLETAS" → href mundoboletos.com, target _blank
 - Sparkle placeholders top-right and bottom-left
 

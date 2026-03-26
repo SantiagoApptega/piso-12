@@ -58,22 +58,32 @@ interface PriceLineProps {
   isHighlighted?: boolean;
 }
 
+function splitPriceDisplay(price: string): { main: string; suffix: string | null } {
+  const i = price.indexOf('+');
+  if (i === -1) return { main: price, suffix: null };
+  return { main: price.slice(0, i), suffix: price.slice(i) };
+}
+
 function PriceLine({ label, price, isHighlighted = false }: PriceLineProps) {
+  const { main, suffix } = splitPriceDisplay(price);
+  const valueTone = isHighlighted ? 'text-foreground-light' : 'text-foreground-light/50';
+
   return (
-    <div className="flex items-baseline justify-between gap-4">
+    <div className="flex min-w-0 items-baseline justify-between gap-3">
       <span
-        className={`font-heading text-xs tracking-[0.2em] uppercase ${
+        className={`shrink-0 font-heading text-xs tracking-[0.2em] uppercase ${
           isHighlighted ? 'text-foreground-light/80' : 'text-foreground-light/50'
         }`}
       >
         {label}
       </span>
       <span
-        className={`font-heading font-black tabular-nums text-base md:text-lg ${
-          isHighlighted ? 'text-foreground-light' : 'text-foreground-light/50'
-        }`}
+        className={`inline-flex min-w-0 max-w-full flex-wrap items-baseline justify-end gap-x-1 text-right ${valueTone}`}
       >
-        {price}
+        <span className="font-heading text-base leading-none font-black tabular-nums md:text-lg">{main}</span>
+        {suffix ? (
+          <span className="font-body text-[11px] font-medium leading-none opacity-75 md:text-xs">{suffix}</span>
+        ) : null}
       </span>
     </div>
   );

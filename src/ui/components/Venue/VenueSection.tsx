@@ -4,7 +4,7 @@ import { EVENT } from '../../../domain/constants/index.js';
 
 export function VenueSection() {
   return (
-    <SectionWrapper id="venue" className="py-24 md:py-32 px-6 bg-background">
+    <SectionWrapper id="venue" className="bg-background px-6 py-12 md:py-16">
       <div className="max-w-5xl mx-auto">
         <SectionHeading
           label="Lugar"
@@ -23,14 +23,15 @@ export function VenueSection() {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Centro de Eventos Andino, Pasto"
+            title={`${EVENT.venue}, Pasto`}
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 items-stretch gap-3 md:grid-cols-4 md:gap-4 lg:gap-6">
           <DetailCard label="Fecha" value="25 de Abril, 2026" />
-          <DetailCard label="Hora" value="9:00 PM COT" />
-          <DetailCard label="Lugar" value={`${EVENT.venue} — Pasto, Nariño`} />
+          <DetailCard label="Hora" value="9:00 PM" />
+          <DetailCard label="Lugar" value={EVENT.venueShort} />
+          <DetailCard label="Edad" value={EVENT.ageRestriction} />
         </div>
       </div>
     </SectionWrapper>
@@ -45,13 +46,13 @@ interface DetailCardProps {
 function DetailCard({ label, value }: DetailCardProps) {
   return (
     <div
-      className="p-6 bg-background"
+      className="flex h-full flex-col bg-background px-3 py-3 md:px-4 md:py-4"
       style={{ border: '1px solid var(--color-border-light)' }}
     >
-      <p className="font-heading text-xs tracking-[0.3em] uppercase text-accent mb-2">
+      <p className="mb-1 shrink-0 font-heading text-[10px] tracking-[0.28em] text-accent uppercase md:text-xs md:tracking-[0.3em]">
         {label}
       </p>
-      <p className="font-heading font-black text-lg md:text-xl text-foreground-light tracking-wide">
+      <p className="font-heading text-base font-black leading-tight tracking-wide text-foreground-light text-balance md:text-lg">
         {value}
       </p>
     </div>

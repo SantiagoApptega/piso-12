@@ -5,12 +5,12 @@ import { TICKET_TIERS } from '../../../domain/constants/index.js';
 
 export function TicketsSection() {
   return (
-    <SectionWrapper id="boletas" className="py-24 md:py-32 px-6 bg-surface-light">
+    <SectionWrapper id="boletas" className="bg-surface-light px-6 py-12 md:py-16">
       <div className="max-w-5xl mx-auto">
         <SectionHeading
           label="Boletas"
           title="Elige tu experiencia"
-          subtitle="Todas las boletas disponibles en mundoboletos.com"
+          subtitle="El tiempo que se va ya no regresa"
           scheme="light"
         />
 

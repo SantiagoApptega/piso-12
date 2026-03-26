@@ -5,6 +5,8 @@ export interface SectionHeadingProps {
   as?: 'h2' | 'h3';
   align?: 'left' | 'center';
   scheme?: 'dark' | 'light';
+  /** Replaces default bottom margin wrapper (default `mb-12`) when set */
+  className?: string;
 }
 
 export function SectionHeading({
@@ -14,15 +16,17 @@ export function SectionHeading({
   as: Tag = 'h2',
   align = 'center',
   scheme = 'light',
+  className,
 }: SectionHeadingProps) {
   const alignClass = align === 'center' ? 'text-center' : 'text-left';
+  const marginClass = className ?? 'mb-12';
 
   const titleClass =
     scheme === 'dark' ? 'text-foreground-dark' : 'text-foreground-light';
   const subtitleClass = scheme === 'dark' ? 'text-chrome' : 'text-foreground-light/60';
 
   return (
-    <div className={`mb-12 ${alignClass}`}>
+    <div className={`${marginClass} ${alignClass}`}>
       {label && (
         <p className="font-heading text-xs tracking-[0.4em] uppercase text-accent mb-3">
           {label}

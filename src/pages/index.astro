@@ -16,12 +16,6 @@ import { Footer } from '../ui/components/Footer/Footer.js';
     <!-- Countdown: needs runtime Date, stays dark -->
     <CountdownTimer client:only="react" />
 
-    <!-- Gradient transition: dark void → white background -->
-    <div
-      aria-hidden="true"
-      style="height: 120px; background: linear-gradient(to bottom, var(--color-void), var(--color-background));"
-    ></div>
-
     <!-- Light sections — hydrate on scroll -->
     <LineupSection client:visible />
     <TicketsSection client:visible />

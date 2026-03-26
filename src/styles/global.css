@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Barlow+Condensed:wght@300;400;700;900&family=Barlow:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Barlow:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -15,7 +15,8 @@
   --color-border-light: rgba(0, 0, 0, 0.1);
 
   --font-display: 'Playfair Display', serif;
-  --font-heading: 'Barlow Condensed', sans-serif;
+  /* Outfit: legible at bold/black weights (replaces Barlow Condensed for UI type) */
+  --font-heading: 'Outfit', system-ui, sans-serif;
   --font-body: 'Barlow', sans-serif;
 }
 

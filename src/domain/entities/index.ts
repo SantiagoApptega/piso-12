@@ -5,9 +5,13 @@ export interface Event {
   date: string;
   dateISO: string;
   venue: string;
+  /** Compact label for cards / hero (full name stays in `venue`) */
+  venueShort: string;
   venueAddress: string;
   ticketUrl: string;
   contacts: string[];
+  /** e.g. "Mayores de 18 años" */
+  ageRestriction: string;
 }
 
 export interface Artist {

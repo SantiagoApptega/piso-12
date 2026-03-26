@@ -32,8 +32,8 @@ export function CountdownTimer() {
 
   return (
     <div
-      className="border-y text-foreground-dark bg-void py-12 md:py-16"
-      style={{ borderColor: 'var(--color-border-dark)' }}
+      className="border-t border-b text-foreground-dark bg-void py-12 md:py-16"
+      style={{ borderTopColor: 'var(--color-border-dark)', borderBottomColor: 'rgba(200,200,212,0.25)' }}
     >
       <div className="max-w-4xl mx-auto px-6">
         <p className="font-heading text-xs tracking-[0.4em] uppercase text-accent text-center mb-8">
