@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import type { TicketTier } from '../../../domain/entities/index.js';
 import { Button } from '../shared/Button.js';
 import { EVENT } from '../../../domain/constants/index.js';
@@ -9,18 +10,35 @@ export interface TicketCardProps {
 
 export function TicketCard({ tier, isFeatured = false }: TicketCardProps) {
   return (
-    <article
-      className={`relative flex flex-col p-8 transition-all duration-200 ${
+    <motion.article
+      className={`relative flex flex-col p-8 transition-colors duration-200 ${
         isFeatured
           ? 'bg-surface-light ring-1 ring-foreground-light/20 scale-[1.02]'
           : 'bg-background'
       }`}
       style={{ border: isFeatured ? undefined : '1px solid var(--color-border-light)' }}
+      whileHover={{ y: isFeatured ? -8 : -5 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
     >
       {isFeatured && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground font-heading text-[10px] tracking-[0.3em] uppercase px-4 py-1">
-          Popular
-        </span>
+        <>
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground font-heading text-[10px] tracking-[0.3em] uppercase px-4 py-1">
+            Popular
+          </span>
+          {/* Pulsing accent ring — draws the eye to the featured card */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            style={{ border: '1px solid var(--color-accent)' }}
+            animate={{ opacity: [0, 0.55, 0] }}
+            transition={{
+              duration: 2.8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              repeatDelay: 0.4,
+            }}
+            aria-hidden="true"
+          />
+        </>
       )}
 
       <h3 className="font-heading font-black text-2xl tracking-[0.08em] uppercase text-foreground-light mb-1">
@@ -48,7 +66,7 @@ export function TicketCard({ tier, isFeatured = false }: TicketCardProps) {
       >
         Comprar
       </Button>
-    </article>
+    </motion.article>
   );
 }
 

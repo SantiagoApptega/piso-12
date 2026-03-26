@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { HERO_VIDEO_LOOP_END_SEC, HERO_VIDEO_LOOP_START_SEC } from '../../../lib/constants.js';
+import { HeroCanvas } from './HeroCanvas.js';
 import { HeroOverlay } from './HeroOverlay.js';
 
 export function HeroSection() {
@@ -31,6 +32,9 @@ export function HeroSection() {
         playsInline
         aria-hidden="true"
       />
+
+      {/* Three.js chrome spikes — z-[1], sits between video and text overlay */}
+      <HeroCanvas />
 
       {/* Text + CTA overlay — z-10 */}
       <HeroOverlay />

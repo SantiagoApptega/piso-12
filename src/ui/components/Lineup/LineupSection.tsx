@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { ARTISTS } from '../../../domain/constants/index.js';
 import type { Artist } from '../../../domain/entities/index.js';
 import { LINEUP_ARTIST_PLACEHOLDER_IMAGE } from '../../../lib/constants.js';
@@ -5,14 +6,32 @@ import { HeadlinerSpotlight } from './HeadlinerSpotlight.js';
 import { SectionHeading } from '../shared/SectionHeading.js';
 import { SectionWrapper } from '../shared/SectionWrapper.js';
 
+const gridVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+  },
+} as const;
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 28 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
+  },
+} as const;
+
 function GuestCard({ artist }: { artist: Artist }) {
   const isGuest = artist.role === 'guest';
   const imageSrc = artist.imageUrl ?? LINEUP_ARTIST_PLACEHOLDER_IMAGE;
 
   return (
-    <article
+    <motion.article
       className="relative overflow-hidden"
       style={{ aspectRatio: '4/5' }}
+      whileHover={{ scale: 1.04, y: -6 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
     >
       <img
         src={imageSrc}
@@ -36,7 +55,7 @@ function GuestCard({ artist }: { artist: Artist }) {
           {isGuest ? 'Artista Invitado' : 'DJ'}
         </p>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
@@ -57,11 +76,20 @@ export function LineupSection() {
           className="mb-6 md:mb-8"
         />
 
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+        {/* Staggered card grid */}
+        <motion.div
+          className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4"
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-60px' }}
+        >
           {support.map((artist) => (
-            <GuestCard key={artist.name} artist={artist} />
+            <motion.div key={artist.name} variants={cardVariants}>
+              <GuestCard artist={artist} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </SectionWrapper>
   );

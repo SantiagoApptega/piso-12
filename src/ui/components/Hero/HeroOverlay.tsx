@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '../shared/Button.js';
 import { EVENT } from '../../../domain/constants/index.js';
 
@@ -18,23 +18,56 @@ const SHADOW_DETAIL = {
     '0 0 1px rgba(0,0,0,1), 0 1px 3px rgba(0,0,0,0.95), 0 2px 14px rgba(0,0,0,0.85), 0 4px 24px rgba(0,0,0,0.65)',
 } as const;
 
+const HEAVY_EASE = [0.16, 1, 0.3, 1] as const;
+
+// The outermost wrapper controls ALL opacity — nothing is visible before the delay fires.
+// Children only animate their y/scale position so the stagger is visible; fading is parent-driven.
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.22,
+      delayChildren: 1.5, // children start same moment the parent fade begins
+    },
+  },
+} as const;
+
+// Y-only stagger — no per-child opacity (parent handles the fade as one unit)
+const itemUp = {
+  hidden: { y: 32 },
+  show: { y: 0, transition: { duration: 1.4, ease: HEAVY_EASE } },
+} as const;
+
+const itemHero = {
+  hidden: { y: 55, scale: 0.96 },
+  show: { y: 0, scale: 1, transition: { duration: 1.7, ease: HEAVY_EASE } },
+} as const;
+
+const itemBtn = {
+  hidden: { scale: 0.85 },
+  show: { scale: 1, transition: { duration: 0.9, ease: [0.34, 1.4, 0.64, 1] } },
+} as const;
+
 function heroDateShort(): string {
   return EVENT.date.split('—')[0]?.trim() ?? EVENT.date;
 }
 
 export function HeroOverlay() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center pointer-events-none">
-      {/* Viñeta global suave pero visible */}
+    /**
+     * Single motion root — starts fully transparent, fades in at 1.5s.
+     * This means: video plays clean for 1.5s, then backdrop + text appear together.
+     * The stagger is visible through the y-slide of each element.
+     */
+    <motion.div
+      className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center pointer-events-none"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1.5, duration: 0.9, ease: HEAVY_EASE }}
+    >
+      {/* Viñeta global suave */}
       <div
-        className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
             'radial-gradient(ellipse 92% 78% at 50% 48%, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.06) 48%, transparent 68%)',
@@ -42,10 +75,12 @@ export function HeroOverlay() {
         aria-hidden="true"
       />
 
-      <div
-        className={`relative z-1 w-full max-w-4xl ${
-          isVisible ? 'fade-in-hero pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
+      {/* Stagger timing container */}
+      <motion.div
+        className="relative z-1 w-full max-w-4xl pointer-events-none"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
       >
         {/* Halo ancho */}
         <div
@@ -82,36 +117,40 @@ export function HeroOverlay() {
         />
 
         <div className="relative z-1 px-2">
-          <p
+          <motion.p
             className="mb-4 font-heading text-xs tracking-[0.3em] text-chrome uppercase md:text-sm"
             style={SHADOW_DETAIL}
+            variants={itemUp}
           >
             {EVENT.presenter} presenta
-          </p>
+          </motion.p>
 
-          <h1
+          <motion.h1
             className="font-display text-foreground-dark italic leading-none"
             style={{ fontSize: 'clamp(72px, 17vw, 200px)', ...SHADOW_DISPLAY }}
+            variants={itemHero}
           >
             Ñejo
-          </h1>
+          </motion.h1>
 
-          <p
+          <motion.p
             className="font-heading font-black tracking-[0.2em] text-foreground-dark uppercase leading-none"
             style={{ fontSize: 'clamp(20px, 5vw, 56px)', ...SHADOW_HEADING }}
+            variants={itemUp}
           >
             El Broko
-          </p>
+          </motion.p>
 
-          <div
+          <motion.div
             className="mt-6 space-y-1 text-center font-body text-xs font-light tracking-[0.25em] text-chrome uppercase md:text-sm"
             style={SHADOW_DETAIL}
+            variants={itemUp}
           >
             <p className="leading-snug">Pasto - {heroDateShort()}</p>
-            <p className="leading-snug">{EVENT.venueShort}</p>
-          </div>
+            <p className="leading-snug">{EVENT.venue}</p>
+          </motion.div>
 
-          <div className="mt-10">
+          <motion.div className="mt-10 pointer-events-auto" variants={itemBtn}>
             <Button
               href={EVENT.ticketUrl}
               target="_blank"
@@ -122,9 +161,9 @@ export function HeroOverlay() {
             >
               Comprar boletas
             </Button>
-          </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
