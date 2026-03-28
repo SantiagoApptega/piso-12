@@ -1,3 +1,4 @@
+import { SPOTIFY_PLAYLIST_EMBED_URL } from '../../../lib/constants.js';
 import { SectionWrapper } from '../shared/SectionWrapper.js';
 
 export function SpotifySection() {
@@ -15,7 +16,7 @@ export function SpotifySection() {
         </p>
         <iframe
           title="Spotify playlist — Ñejo El Broko"
-          src="https://open.spotify.com/embed/playlist/5sXNgo83CgNHst967NBpva"
+          src={SPOTIFY_PLAYLIST_EMBED_URL}
           height="152"
           frameBorder={0}
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"

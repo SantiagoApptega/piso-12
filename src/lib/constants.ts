@@ -7,3 +7,7 @@ export const LINEUP_ARTIST_PLACEHOLDER_IMAGE = '/assets/placeholder/dj.jpg';
 
 /** Footer credit — update URL if it changes */
 export const PASSTIX_CREDIT_URL = 'https://passtix.com';
+
+/** Spotify embed — Ñejo - Piso 12 (share link → embed) */
+export const SPOTIFY_PLAYLIST_EMBED_URL =
+  'https://open.spotify.com/embed/playlist/5sXNgo83CgNHst967NBpva?si=RTXzm0hYQiyoWmdlTG4nIg&pi=hebIIr7WRzuJd';
