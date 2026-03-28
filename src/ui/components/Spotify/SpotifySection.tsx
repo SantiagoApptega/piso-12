@@ -4,13 +4,13 @@ export function SpotifySection() {
   return (
     <SectionWrapper
       id="playlist"
-      className="bg-void py-16"
+      className="bg-void pt-8 pb-16 md:pt-10 md:pb-16"
     >
       <div
         className="flex flex-col items-center gap-6 px-6"
         style={{ borderTop: '1px solid var(--color-border-dark)' }}
       >
-        <p className="font-heading tracking-[0.35em] text-chrome-dim text-xs text-center uppercase pt-16">
+        <p className="font-heading tracking-[0.35em] text-chrome-dim text-xs text-center uppercase pt-6 md:pt-8">
           Escucha lo mejor de Ñejo
         </p>
         <iframe
