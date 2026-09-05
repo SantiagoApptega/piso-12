@@ -16,27 +16,12 @@ export function FinalCtaSection() {
       id="final-cta"
       className="relative flex min-h-[90svh] w-full items-center overflow-hidden bg-void"
     >
-      {/* The sculpture, ghosted — pure texture, not a video anymore */}
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        style={{
-          filter: 'grayscale(100%) contrast(1.15) brightness(0.5)',
-          opacity: 0.45,
-        }}
-        src="/assets/videos/pitbull_chain.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-      />
-      {/* Sink it into black from every edge */}
+      {/* Cold chrome + faint violet pools of light — no imagery, just atmosphere */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 75% 65% at 50% 50%, rgba(5,5,5,0.25) 0%, rgba(5,5,5,0.92) 78%, #050505 100%)',
+            'radial-gradient(ellipse 60% 50% at 78% 18%, rgba(200,200,212,0.07) 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 12% 88%, rgba(124,58,237,0.06) 0%, transparent 62%)',
         }}
         aria-hidden="true"
       />

@@ -96,8 +96,8 @@ Hero → Countdown → Manifesto → Lineup → Experiences → Tickets → Venu
 Dark luxury / macabre club / liquid chrome. The whole page is near-black; sections
 separate through lighting (radial glow pools), hairline dividers, texture and scale —
 NEVER through alternating white/black backgrounds. The chrome dog sculpture video is
-the visual signature: hero protagonist, macro detail in the Manifesto, ghosted texture
-in the Final CTA. Orange is reserved for CTAs and micro details. Violet appears only in
+the visual signature and appears ONLY in the hero — every other section builds
+atmosphere with typography and light pools. Orange is reserved for CTAs and micro details. Violet appears only in
 particles and secondary glows. Subtle film-grain overlay sits on everything.
 
 Never: childish Halloween, pumpkins, cobwebs, generic ghosts, orange floods, white
@@ -134,8 +134,8 @@ Micro-labels: font-heading light, 9–12px, tracking 0.3em–0.5em, uppercase, c
 ### Assets
 - Logo: /assets/brand/logo.webp (+ logo-negro.webp, logo-chrome.png) — use `.asset-screen`
 - Lineup placeholder: /assets/placeholder/dj.jpg — used when an `Artist.imageUrl` isn't set
-- Video: /assets/videos/pitbull_chain.mp4 — chrome sculpture. Hero background (custom loop),
-  Manifesto macro frame (grayscale filter), Final CTA ghost layer (grayscale + dark overlay).
+- Video: /assets/videos/pitbull_chain.mp4 — chrome sculpture. Hero background ONLY
+  (custom loop) — do not reuse it in other sections.
   Iconic Piso 12 brand asset — kept across events regardless of theme.
 
 ---
@@ -172,7 +172,7 @@ Micro-labels: font-heading light, 9–12px, tracking 0.3em–0.5em, uppercase, c
 ### ManifestoSection.tsx
 - Atmosphere only — no invented facts. Technical micro header (31.10.26 / coords /
   Pasto — CO), serif statement "Cuando cae la noche, Pasto cambia de cara.",
-  producers line from EVENT, sculpture video in a 3/4 framed figure with caption
+  producers line from EVENT, venue/coords micro-footer. Pure typography — no imagery
 
 ### LineupSection.tsx
 - Editorial numbered list (01–04) over ARTISTS — big Oswald names, hover/focus turns
@@ -198,7 +198,7 @@ Micro-labels: font-heading light, 9–12px, tracking 0.3em–0.5em, uppercase, c
   ledger (dl) — no detail cards
 
 ### FinalCtaSection.tsx
-- Full-width closer: ghosted sculpture video under radial black, "31.10.26",
+- Full-width closer: chrome + violet light pools on black (no imagery), "31.10.26",
   "Una noche. Una ciudad. Ninguna cara conocida.", orange CTA
 
 ### StickyCta.tsx

@@ -43,66 +43,31 @@ export function ManifestoSection() {
 
         <div className="hairline mt-5 mb-14 md:mb-20" aria-hidden="true" />
 
-        <div className="grid items-end gap-12 md:grid-cols-12 md:gap-8">
-          {/* Statement */}
-          <motion.div className="md:col-span-8" variants={reveal}>
-            <h2
-              className="font-display italic leading-[1.04] text-foreground-dark"
-              style={{ fontSize: 'clamp(38px, 6.4vw, 88px)' }}
-            >
-              Cuando cae
-              <br />
-              la noche,
-              <br />
-              <span className="text-liquid-chrome not-italic">Pasto cambia</span>
-              <br />
-              de cara.
-            </h2>
+        {/* Statement — pure typography, no imagery */}
+        <motion.div variants={reveal}>
+          <h2
+            className="font-display italic leading-[1.04] text-foreground-dark"
+            style={{ fontSize: 'clamp(38px, 6.4vw, 88px)' }}
+          >
+            Cuando cae
+            <br />
+            la noche,
+            <br />
+            <span className="text-liquid-chrome not-italic">Pasto cambia</span>
+            <br />
+            de cara.
+          </h2>
 
-            <p className="mt-10 max-w-md font-body text-sm font-light leading-relaxed tracking-wide text-chrome md:text-base">
-              Halloween — Noche Macabra. Una sola noche en el Centro de Eventos
-              Andino, producida por {EVENT.presenter} junto a{' '}
-              {EVENT.coProducers.join(', ')}.
-            </p>
-          </motion.div>
+          <p className="mt-10 max-w-md font-body text-sm font-light leading-relaxed tracking-wide text-chrome md:text-base">
+            Halloween — Noche Macabra. Una sola noche en el Centro de Eventos
+            Andino, producida por {EVENT.presenter} junto a{' '}
+            {EVENT.coProducers.join(', ')}.
+          </p>
 
-          {/* Macro detail of the chrome sculpture — campaign-style frame */}
-          <motion.figure className="md:col-span-4 md:justify-self-end" variants={reveal}>
-            <div
-              className="relative w-full max-w-[280px] overflow-hidden md:max-w-[300px]"
-              style={{
-                aspectRatio: '3 / 4',
-                border: '1px solid var(--color-border-dark)',
-              }}
-            >
-              <video
-                className="h-full w-full object-cover"
-                style={{ filter: 'grayscale(100%) contrast(1.12) brightness(0.8)' }}
-                src="/assets/videos/pitbull_chain.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    'linear-gradient(to top, rgba(5,5,5,0.7) 0%, transparent 40%)',
-                }}
-                aria-hidden="true"
-              />
-              <span className="absolute bottom-3 left-3 font-heading text-[9px] font-light tracking-[0.4em] text-chrome uppercase">
-                Fig. 01 — Chrome
-              </span>
-            </div>
-            <figcaption className="mt-3 font-heading text-[9px] font-light tracking-[0.35em] text-chrome-dim uppercase">
-              {EVENT.venue} · {VENUE_COORDS}
-            </figcaption>
-          </motion.figure>
-        </div>
+          <p className="mt-14 font-heading text-[9px] font-light tracking-[0.35em] text-chrome-dim uppercase md:mt-20">
+            {EVENT.venue} · {VENUE_COORDS}
+          </p>
+        </motion.div>
       </motion.div>
     </section>
   );
