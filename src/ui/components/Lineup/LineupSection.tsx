@@ -39,7 +39,7 @@ export function LineupSection() {
           viewport={{ once: true, margin: '-60px' }}
         >
           <h2
-            className="font-display italic leading-[0.9] text-foreground-dark"
+            className="font-display leading-[0.9] text-foreground-dark"
             style={{ fontSize: 'clamp(48px, 9vw, 120px)' }}
           >
             Line

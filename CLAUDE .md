@@ -125,11 +125,13 @@ Utility classes in global.css:
 ### Typography tokens — editorial contrast: huge type + microtype
 | Token | Font | Usage |
 |-------|------|-------|
-| font-display | Playfair Display, serif (roman + italic) | HALLOWEEN, section statements ("La noche despierta", "Elige cómo vivir la noche.") |
+| font-display | Playfair Display, serif — roman ONLY, never italic | HALLOWEEN, section statements ("La noche despierta", "Elige cómo vivir la noche.") |
 | font-heading | Oswald, condensed sans | numbers, prices, labels, secondary headlines, DJ names |
 | font-body | Barlow, sans-serif | body, descriptions |
 
 Micro-labels: font-heading light, 9–12px, tracking 0.3em–0.5em, uppercase, chrome-dim.
+NO italics anywhere — the user rejected cursive type (the Playfair import excludes the
+italic axis on purpose).
 
 ### Assets
 - Logo: /assets/brand/logo.webp (+ logo-negro.webp, logo-chrome.png) — use `.asset-screen`
@@ -182,8 +184,8 @@ Micro-labels: font-heading light, 9–12px, tracking 0.3em–0.5em, uppercase, c
 ### ExperiencesSection.tsx
 - Replaces the old Costumes section. Title "La noche tiene sus propias reglas."
 - Two giant blocks (3/5 + 2/5): Concurso de Disfraces (violet glow, real prize copy
-  from COSTUME_CONTEST_PRIZE + categories as micro-tags) and Experiencia de Máscaras
-  (chrome glow, aspirational copy only — no invented mechanics)
+  from COSTUME_CONTEST_PRIZE + categories as micro-tags) and Localidades (chrome glow,
+  General/VIP/Palcos rows with tier names from TICKET_TIERS; whole block links to #boletas)
 
 ### TicketsSection.tsx — access levels, not pricing cards
 - Title "Elige cómo vivir la noche." Each tier is a full-width row and the whole row

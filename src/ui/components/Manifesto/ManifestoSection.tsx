@@ -46,14 +46,14 @@ export function ManifestoSection() {
         {/* Statement — pure typography, no imagery */}
         <motion.div variants={reveal}>
           <h2
-            className="font-display italic leading-[1.04] text-foreground-dark"
+            className="font-display leading-[1.04] text-foreground-dark"
             style={{ fontSize: 'clamp(38px, 6.4vw, 88px)' }}
           >
             Cuando cae
             <br />
             la noche,
             <br />
-            <span className="text-liquid-chrome not-italic">Pasto cambia</span>
+            <span className="text-liquid-chrome">Pasto cambia</span>
             <br />
             de cara.
           </h2>

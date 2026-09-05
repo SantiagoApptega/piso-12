@@ -60,7 +60,7 @@ export function CountdownTimer() {
         <div className="grid items-end gap-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-6">
           {/* Serif statement, left */}
           <motion.h2
-            className="font-display text-foreground-dark italic leading-[1.02]"
+            className="font-display text-foreground-dark leading-[1.02]"
             style={{ fontSize: 'clamp(36px, 6vw, 76px)' }}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -71,7 +71,7 @@ export function CountdownTimer() {
             <br />
             despierta
             <br />
-            <span className="text-chrome-dim not-italic font-heading text-[0.4em] font-light tracking-[0.6em] uppercase align-middle">
+            <span className="text-chrome-dim font-heading text-[0.4em] font-light tracking-[0.6em] uppercase align-middle">
               en
             </span>
           </motion.h2>

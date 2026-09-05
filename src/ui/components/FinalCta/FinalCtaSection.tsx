@@ -41,7 +41,7 @@ export function FinalCtaSection() {
         </motion.p>
 
         <motion.h2
-          className="font-display italic leading-[1.02] text-foreground-dark"
+          className="font-display leading-[1.02] text-foreground-dark"
           style={{
             fontSize: 'clamp(40px, 7.4vw, 104px)',
             textShadow: '0 2px 24px rgba(0,0,0,0.8)',
@@ -52,7 +52,7 @@ export function FinalCtaSection() {
           <br />
           Una ciudad.
           <br />
-          <span className="text-liquid-chrome not-italic font-heading font-semibold uppercase tracking-[0.02em]">
+          <span className="text-liquid-chrome font-heading font-semibold uppercase tracking-[0.02em]">
             Ninguna cara conocida.
           </span>
         </motion.h2>

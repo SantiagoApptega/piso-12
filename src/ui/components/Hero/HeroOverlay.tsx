@@ -111,7 +111,7 @@ export function HeroOverlay() {
 
             <div className="relative z-1">
               <motion.h1
-                className="font-display text-foreground-dark italic leading-[0.95]"
+                className="font-display text-foreground-dark leading-[0.95]"
                 style={{ fontSize: 'clamp(52px, 13vw, 168px)', ...SHADOW_DISPLAY }}
                 variants={itemHero}
               >

@@ -139,7 +139,7 @@ export function TicketsSection() {
             Boletas
           </p>
           <h2
-            className="font-display italic leading-[1.04] text-foreground-dark"
+            className="font-display leading-[1.04] text-foreground-dark"
             style={{ fontSize: 'clamp(34px, 5.6vw, 76px)' }}
           >
             Elige cómo
