@@ -17,12 +17,14 @@ Static promotional site — no auth, no CMS, no e-commerce.
 - Lineup: flat list of DJs, no headliner. Current names in `domain/constants` are
   placeholders (DJ HEX, DJ VOID, DJ PHANTOM, DJ NECRO) — pending confirmed line-up.
 
-## Ticket tiers — NEVER modify tier names or omit "+servicio"
+## Ticket tiers — NEVER omit "+servicio"
+Plain zone names only — the user removed the old themed tier names (Alma en Pena /
+Pacto con el Diablo / Castillo Embrujado); do NOT bring them back.
 | Tier | Zone | Launch | Preventa | Full |
 |------|------|--------|----------|------|
-| ALMA EN PENA | General | $50.000+servicio | $65.000+servicio | $75.000+servicio |
-| PACTO CON EL DIABLO | VIP — aforo limitado | $70.000+servicio | $85.000+servicio | $95.000+servicio |
-| CASTILLO EMBRUJADO | Palco 10 pax + botella | $1'500.000+servicio | $1'600.000+servicio | $1'800.000+servicio |
+| General | Acceso general | $50.000+servicio | $65.000+servicio | $75.000+servicio |
+| VIP | Aforo limitado | $70.000+servicio | $85.000+servicio | $95.000+servicio |
+| Palco | Para 10 personas + botella | $1'500.000+servicio | $1'600.000+servicio | $1'800.000+servicio |
 
 ---
 
@@ -103,6 +105,12 @@ particles and secondary glows. Subtle film-grain overlay sits on everything.
 Never: childish Halloween, pumpkins, cobwebs, generic ghosts, orange floods, white
 cards, SaaS pricing cards, EDM-festival clichés.
 
+### Copy voice
+Piso 12 is a perreo/reggaetón brand — copy must sound street and confident, never
+solemn or corny ("pato"). Prefer "el perreo más oscuro del año" over poetic filler.
+Layouts must not leave dead/empty zones on desktop or mobile: pair big statements
+with copy, ledgers or texture that fill the opposite column.
+
 ### Color tokens — ALWAYS use theme tokens, NEVER hardcode hex
 | Token | Value | Tailwind class | Used in |
 |-------|-------|----------------|---------|
@@ -176,8 +184,9 @@ italic axis on purpose).
 
 ### ManifestoSection.tsx
 - Atmosphere only — no invented facts. Technical micro header (31.10.26 / coords /
-  Pasto — CO), serif statement "Cuando cae la noche, Pasto cambia de cara.",
-  producers line from EVENT, venue/coords micro-footer. Pure typography — no imagery
+  Pasto — CO); then a 7/5 grid: serif statement "Cuando cae la noche, Pasto cambia
+  de cara." left, and on the right the event copy plus a hairline data ledger
+  (producción/fecha/lugar/ciudad) so the column never reads empty. No imagery
 
 ### LineupSection.tsx
 - Editorial numbered list (01–04) over ARTISTS — big Oswald names, hover/focus turns
@@ -187,15 +196,14 @@ italic axis on purpose).
 ### ExperiencesSection.tsx
 - Replaces the old Costumes section. Title "La noche tiene sus propias reglas."
 - Two giant blocks (3/5 + 2/5): Concurso de Disfraces (violet glow, real prize copy
-  from COSTUME_CONTEST_PRIZE + categories as micro-tags) and Localidades (chrome glow,
-  General/VIP/Palcos rows with tier names from TICKET_TIERS; whole block links to #boletas)
+  from COSTUME_CONTEST_PRIZE + categories as micro-tags) and Experiencias de Marcas
+  (chrome glow, aspirational copy — never invent specific brand names)
 
 ### TicketsSection.tsx — access levels, not pricing cards
 - Title "Elige cómo vivir la noche." Each tier is a full-width row and the whole row
   links to EVENT.ticketUrl; hover lights the row + grows an orange left bar
 - Always show all 3 price phases (launch dominant / preventa / full)
 - ALWAYS append "+servicio" — never display price without it
-- Tier names are brand names — never translate or modify
 
 ### VenueSection.tsx
 - Stacked "CENTRO DE EVENTOS ANDINO" in liquid chrome left, tall dark-treated map
@@ -203,8 +211,8 @@ italic axis on purpose).
   ledger (dl) — no detail cards
 
 ### FinalCtaSection.tsx
-- Full-width closer: chrome + violet light pools on black (no imagery), "31.10.26",
-  "Una noche. Una ciudad. Ninguna cara conocida.", orange CTA
+- Full-width closer: chrome + violet light pools on black (no imagery), centered:
+  "31.10.26", "Una noche. Una ciudad. Puro perreo macabro.", orange CTA
 
 ### StickyCta.tsx
 - Mobile only (md:hidden). Appears after scrolling past ~85% of the viewport,

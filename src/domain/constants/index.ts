@@ -28,8 +28,8 @@ export const ARTISTS: Artist[] = [
 
 export const TICKET_TIERS: TicketTier[] = [
   {
-    name: 'ALMA EN PENA',
-    zone: 'General',
+    name: 'General',
+    zone: 'Acceso general',
     pricing: {
       launch: '$50.000+servicio',
       preventa: '$65.000+servicio',
@@ -37,8 +37,8 @@ export const TICKET_TIERS: TicketTier[] = [
     },
   },
   {
-    name: 'PACTO CON EL DIABLO',
-    zone: 'VIP — aforo limitado',
+    name: 'VIP',
+    zone: 'Aforo limitado',
     pricing: {
       launch: '$70.000+servicio',
       preventa: '$85.000+servicio',
@@ -46,8 +46,8 @@ export const TICKET_TIERS: TicketTier[] = [
     },
   },
   {
-    name: 'CASTILLO EMBRUJADO',
-    zone: 'Palco 10 pax + botella',
+    name: 'Palco',
+    zone: 'Para 10 personas + botella',
     pricing: {
       launch: "$1'500.000+servicio",
       preventa: "$1'600.000+servicio",
@@ -64,4 +64,4 @@ export const COSTUME_CATEGORIES: CostumeCategory[] = [
 ];
 
 export const COSTUME_CONTEST_PRIZE =
-  'El mejor disfraz de la noche se lleva un Palco Castillo Embrujado para 10 personas en el próximo evento Piso 12.';
+  'El mejor disfraz de la noche se lleva un Palco para 10 personas en el próximo evento Piso 12.';

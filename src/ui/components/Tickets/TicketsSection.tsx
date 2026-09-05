@@ -134,18 +134,27 @@ export function TicketsSection() {
         viewport={{ once: true, margin: '-60px' }}
         transition={{ staggerChildren: 0.12 }}
       >
-        <motion.div className="mb-8 md:mb-12" variants={reveal}>
-          <p className="mb-4 font-heading text-[10px] font-light tracking-[0.45em] text-accent uppercase md:text-xs">
-            Boletas
+        <motion.div
+          className="mb-8 flex flex-col gap-6 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-10"
+          variants={reveal}
+        >
+          <div>
+            <p className="mb-4 font-heading text-[10px] font-light tracking-[0.45em] text-accent uppercase md:text-xs">
+              Boletas
+            </p>
+            <h2
+              className="font-display leading-[1.04] text-foreground-dark"
+              style={{ fontSize: 'clamp(34px, 5.6vw, 76px)' }}
+            >
+              Elige cómo
+              <br />
+              vivir la noche.
+            </h2>
+          </div>
+          <p className="max-w-xs pb-2 font-body text-sm font-light leading-relaxed tracking-wide text-chrome-dim md:text-right">
+            Precios por etapa: lanzamiento, preventa y full. Incluyen cargo por
+            servicio y están sujetos a disponibilidad.
           </p>
-          <h2
-            className="font-display leading-[1.04] text-foreground-dark"
-            style={{ fontSize: 'clamp(34px, 5.6vw, 76px)' }}
-          >
-            Elige cómo
-            <br />
-            vivir la noche.
-          </h2>
         </motion.div>
 
         <motion.ul
@@ -157,13 +166,6 @@ export function TicketsSection() {
             <TierRow key={tier.name} tier={tier} index={index} />
           ))}
         </motion.ul>
-
-        <motion.p
-          className="mt-8 font-body text-xs font-light tracking-wide text-chrome-dim"
-          variants={reveal}
-        >
-          Precios incluyen cargo por servicio. Sujetos a disponibilidad.
-        </motion.p>
       </motion.div>
     </section>
   );

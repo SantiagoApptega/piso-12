@@ -27,7 +27,7 @@ export function FinalCtaSection() {
       />
 
       <motion.div
-        className="relative z-1 mx-auto w-full max-w-6xl px-6 py-28 md:px-10 md:py-40"
+        className="relative z-1 mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-20 text-center md:px-10 md:py-24"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: '-60px' }}
@@ -53,11 +53,11 @@ export function FinalCtaSection() {
           Una ciudad.
           <br />
           <span className="text-liquid-chrome font-heading font-semibold uppercase tracking-[0.02em]">
-            Ninguna cara conocida.
+            Puro perreo macabro.
           </span>
         </motion.h2>
 
-        <motion.div className="mt-12 md:mt-14" variants={reveal}>
+        <motion.div className="mt-10 md:mt-12" variants={reveal}>
           <Button
             href={EVENT.ticketUrl}
             target="_blank"

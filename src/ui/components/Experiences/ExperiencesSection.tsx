@@ -2,11 +2,7 @@ import { motion } from 'framer-motion';
 import {
   COSTUME_CATEGORIES,
   COSTUME_CONTEST_PRIZE,
-  TICKET_TIERS,
 } from '../../../domain/constants/index.js';
-
-/** Short zone labels for block 02 — tier data stays in domain/constants */
-const ZONE_LABELS = ['General', 'VIP', 'Palcos'] as const;
 
 const HEAVY_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -26,20 +22,25 @@ export function ExperiencesSection() {
         transition={{ staggerChildren: 0.15 }}
       >
         {/* Header */}
-        <motion.div className="mb-10 md:mb-14" variants={reveal}>
-          <p className="mb-4 font-heading text-[10px] font-light tracking-[0.45em] text-accent uppercase md:text-xs">
-            Experiencias
-          </p>
-          <h2
-            className="font-display leading-[1.04] text-foreground-dark"
-            style={{ fontSize: 'clamp(34px, 5.6vw, 76px)' }}
-          >
-            La noche tiene
-            <br />
-            sus propias reglas.
-          </h2>
-          <p className="mt-6 max-w-md font-body text-sm font-light leading-relaxed tracking-wide text-chrome">
-            No solo vienes a bailar. Esa noche, quién eres es parte del show.
+        <motion.div
+          className="mb-10 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between md:gap-10"
+          variants={reveal}
+        >
+          <div>
+            <p className="mb-4 font-heading text-[10px] font-light tracking-[0.45em] text-accent uppercase md:text-xs">
+              Experiencias
+            </p>
+            <h2
+              className="font-display leading-[1.04] text-foreground-dark"
+              style={{ fontSize: 'clamp(34px, 5.6vw, 76px)' }}
+            >
+              La noche tiene
+              <br />
+              sus propias reglas.
+            </h2>
+          </div>
+          <p className="max-w-xs pb-2 font-body text-sm font-light leading-relaxed tracking-wide text-chrome md:text-right">
+            Aquí no se viene solo a bailar: se viene a ser parte del show.
           </p>
         </motion.div>
 
@@ -47,7 +48,7 @@ export function ExperiencesSection() {
         <div className="grid gap-4 md:grid-cols-5 md:gap-5">
           {/* Concurso de disfraces — 60% */}
           <motion.article
-            className="group relative flex min-h-[440px] flex-col justify-end overflow-hidden p-7 md:col-span-3 md:min-h-[540px] md:p-10"
+            className="group relative flex min-h-[380px] flex-col justify-end overflow-hidden p-7 md:col-span-3 md:min-h-[480px] md:p-10"
             style={{ border: '1px solid var(--color-border-dark)' }}
             variants={reveal}
           >
@@ -82,7 +83,7 @@ export function ExperiencesSection() {
                 de disfraces
               </h3>
               <p className="mt-4 max-w-sm font-body text-lg font-light text-chrome md:text-xl">
-                Tu personaje también entra a competir.
+                El disfraz más duro de la noche se lleva el premio.
               </p>
               <p className="mt-4 max-w-md font-body text-sm font-light leading-relaxed tracking-wide text-chrome">
                 {COSTUME_CONTEST_PRIZE}
@@ -102,70 +103,45 @@ export function ExperiencesSection() {
             </div>
           </motion.article>
 
-          {/* Localidades — 40%, whole block links to tickets */}
+          {/* Experiencias de marcas — 40% */}
           <motion.article
-            className="relative overflow-hidden md:col-span-2"
+            className="group relative flex min-h-[380px] flex-col justify-end overflow-hidden p-7 md:col-span-2 md:min-h-[480px] md:p-10"
             style={{ border: '1px solid var(--color-border-dark)' }}
             variants={reveal}
           >
-            <a
-              href="#boletas"
-              className="group flex min-h-[440px] flex-col justify-end p-7 md:min-h-[540px] md:p-10"
-              aria-label="Ver boletas — localidades General, VIP y Palcos"
+            {/* Cold chrome background */}
+            <div
+              className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              style={{
+                background:
+                  'radial-gradient(ellipse 100% 60% at 85% 100%, rgba(200,200,212,0.1) 0%, rgba(8,8,8,1) 60%), #080808',
+              }}
+              aria-hidden="true"
+            />
+            <span
+              className="pointer-events-none absolute -top-8 right-2 font-heading font-semibold leading-none text-foreground-dark/[0.05] select-none"
+              style={{ fontSize: 'clamp(160px, 24vw, 320px)' }}
+              aria-hidden="true"
             >
-              {/* Cold chrome background */}
-              <div
-                className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                style={{
-                  background:
-                    'radial-gradient(ellipse 100% 60% at 85% 100%, rgba(200,200,212,0.1) 0%, rgba(8,8,8,1) 60%), #080808',
-                }}
-                aria-hidden="true"
-              />
-              <span
-                className="pointer-events-none absolute -top-8 right-2 font-heading font-semibold leading-none text-foreground-dark/[0.05] select-none"
-                style={{ fontSize: 'clamp(160px, 24vw, 320px)' }}
-                aria-hidden="true"
+              02
+            </span>
+
+            <div className="relative">
+              <p className="mb-3 font-heading text-[10px] font-light tracking-[0.45em] text-chrome-dim uppercase">
+                02 — Marcas
+              </p>
+              <h3
+                className="font-heading font-semibold uppercase leading-[0.95] text-liquid-chrome"
+                style={{ fontSize: 'clamp(34px, 5vw, 60px)' }}
               >
-                02
-              </span>
-
-              <div className="relative">
-                <p className="mb-5 font-heading text-[10px] font-light tracking-[0.45em] text-chrome-dim uppercase">
-                  02 — Localidades
-                </p>
-
-                <ul>
-                  {ZONE_LABELS.map((label, i) => (
-                    <li
-                      key={label}
-                      className="flex items-baseline justify-between gap-4 py-3"
-                      style={{ borderBottom: '1px solid var(--color-border-dark)' }}
-                    >
-                      <span
-                        className="font-heading font-semibold uppercase leading-none text-liquid-chrome"
-                        style={{ fontSize: 'clamp(26px, 3.4vw, 40px)' }}
-                      >
-                        {label}
-                      </span>
-                      <span className="font-heading text-[9px] font-light tracking-[0.3em] text-chrome-dim uppercase">
-                        {TICKET_TIERS[i]?.name}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <p className="mt-5 font-body text-sm font-light leading-relaxed tracking-wide text-chrome">
-                  Cada zona es una forma distinta de vivir la noche.
-                </p>
-                <span className="mt-4 inline-flex items-center gap-2 font-heading text-xs tracking-[0.3em] text-foreground-dark uppercase transition-colors duration-300 group-hover:text-accent">
-                  Ver boletas
-                  <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </span>
-              </div>
-            </a>
+                Experiencias
+                <br />
+                de marcas
+              </h3>
+              <p className="mt-4 font-body text-lg font-light text-chrome md:text-xl">
+                Activaciones y experiencias de marca dentro de la fiesta.
+              </p>
+            </div>
           </motion.article>
         </div>
       </motion.div>
