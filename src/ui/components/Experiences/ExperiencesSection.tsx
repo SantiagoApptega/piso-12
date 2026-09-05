@@ -17,7 +17,7 @@ const reveal = {
 
 export function ExperiencesSection() {
   return (
-    <section id="experiencias" className="relative overflow-hidden bg-abyss py-24 md:py-36">
+    <section id="experiencias" className="relative overflow-hidden bg-abyss py-16 md:py-24">
       <motion.div
         className="relative mx-auto max-w-6xl px-6 md:px-10"
         initial="hidden"
@@ -26,7 +26,7 @@ export function ExperiencesSection() {
         transition={{ staggerChildren: 0.15 }}
       >
         {/* Header */}
-        <motion.div className="mb-14 md:mb-20" variants={reveal}>
+        <motion.div className="mb-10 md:mb-14" variants={reveal}>
           <p className="mb-4 font-heading text-[10px] font-light tracking-[0.45em] text-accent uppercase md:text-xs">
             Experiencias
           </p>

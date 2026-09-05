@@ -13,7 +13,7 @@ const reveal = {
 
 export function ManifestoSection() {
   return (
-    <section id="manifiesto" className="relative overflow-hidden bg-abyss py-28 md:py-40">
+    <section id="manifiesto" className="relative overflow-hidden bg-abyss py-16 md:py-24">
       {/* Cold chrome light leaking from the top-left corner */}
       <div
         className="pointer-events-none absolute top-[-30%] left-[-15%] h-[60%] w-[60%]"
@@ -41,7 +41,7 @@ export function ManifestoSection() {
           <span>Pasto — CO</span>
         </motion.div>
 
-        <div className="hairline mt-5 mb-14 md:mb-20" aria-hidden="true" />
+        <div className="hairline mt-5 mb-10 md:mb-14" aria-hidden="true" />
 
         {/* Statement — pure typography, no imagery */}
         <motion.div variants={reveal}>

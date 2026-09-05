@@ -1,12 +1,13 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const COUNT = 200;
+const COUNT = 160;
 
-// #E85D04 (pumpkin orange) and #7C3AED (eerie violet), normalized
+// Monochrome chrome ash — cold silver tones only, no color
 const PALETTE = [
-  [232 / 255, 93 / 255, 4 / 255],
-  [124 / 255, 58 / 255, 237 / 255],
+  [0.55, 0.55, 0.6],
+  [0.78, 0.78, 0.83],
+  [0.92, 0.92, 0.96],
 ] as const;
 
 export function HeroCanvas() {
@@ -57,20 +58,20 @@ export function HeroCanvas() {
       positions[i * 3 + 1] = (Math.random() - 0.5) * halfH * 2;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 3;
 
-      const [pr, pg, pb] = PALETTE[i % 2];
+      const [pr, pg, pb] = PALETTE[i % PALETTE.length];
       baseR[i] = pr;
       baseG[i] = pg;
       baseB[i] = pb;
 
-      baseBright[i]  = 0.30 + Math.random() * 0.70;   // 0.30 – 1.00
+      baseBright[i]  = 0.16 + Math.random() * 0.5;    // dim — ash, not sparks
       colors[i * 3]     = baseR[i] * baseBright[i];
       colors[i * 3 + 1] = baseG[i] * baseBright[i];
       colors[i * 3 + 2] = baseB[i] * baseBright[i];
 
-      velY[i]       = 0.004 + Math.random() * 0.007;  // very slow rise
-      velX[i]       = (Math.random() - 0.5) * 0.0025; // gentle horizontal drift
+      velY[i]       = -(0.002 + Math.random() * 0.005); // slow fall, like ash
+      velX[i]       = (Math.random() - 0.5) * 0.0022;   // gentle horizontal wander
       flickPhase[i] = Math.random() * Math.PI * 2;
-      flickSpeed[i] = 0.4 + Math.random() * 1.2;      // slow, varied flicker
+      flickSpeed[i] = 0.3 + Math.random() * 0.8;        // slow, varied shimmer
     }
 
     const posAttr = new THREE.BufferAttribute(positions, 3);
@@ -81,10 +82,10 @@ export function HeroCanvas() {
     geo.setAttribute('color', colAttr);
 
     const mat = new THREE.PointsMaterial({
-      size: 0.052,          // tiny — barely visible individually, beautiful as a field
+      size: 0.042,          // tiny — barely visible individually, reads as dust
       vertexColors: true,
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.55,
       depthWrite: false,
       sizeAttenuation: true,
       blending: THREE.AdditiveBlending,
@@ -103,9 +104,9 @@ export function HeroCanvas() {
         positions[i * 3]     += velX[i];
         positions[i * 3 + 1] += velY[i];
 
-        // Reset to bottom when particle exits the top
-        if (positions[i * 3 + 1] > halfH + 0.5) {
-          positions[i * 3 + 1] = -halfH - 0.5;
+        // Reset to top when particle exits the bottom
+        if (positions[i * 3 + 1] < -halfH - 0.5) {
+          positions[i * 3 + 1] = halfH + 0.5;
           positions[i * 3]     = (Math.random() - 0.5) * halfW * 2;
         }
 

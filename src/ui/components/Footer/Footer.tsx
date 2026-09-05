@@ -5,17 +5,10 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-void px-6 pt-20 pb-10 md:px-10 md:pt-28 md:pb-12">
+    <footer className="bg-void px-6 pt-14 pb-10 md:px-10 md:pt-16 md:pb-12">
       <div className="mx-auto max-w-6xl">
-        {/* Producers — small, centered, lots of air */}
+        {/* Producers — text only, centered */}
         <div className="flex flex-col items-center gap-6">
-          <img
-            src="/assets/brand/logo.webp"
-            alt="Piso 12"
-            width={360}
-            height={140}
-            className="asset-screen h-auto w-[min(170px,60vw)] object-contain"
-          />
           <p className="font-heading text-[10px] font-light tracking-[0.45em] text-chrome-dim uppercase">
             {EVENT.coProducers.join(' · ')} · {EVENT.presenter}
           </p>
@@ -37,7 +30,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="hairline mt-16 md:mt-20" aria-hidden="true" />
+        <div className="hairline mt-10 md:mt-12" aria-hidden="true" />
 
         {/* Legal line */}
         <div className="mt-8 flex flex-col items-center gap-3 text-center">

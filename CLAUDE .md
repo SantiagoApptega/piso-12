@@ -74,7 +74,7 @@ src/
     │   ├── FinalCta/
     │   │   └── FinalCtaSection.tsx  # full-width closer, ghosted sculpture video
     │   ├── Footer/
-    │   │   └── Footer.tsx           # minimal, centered, pure black
+    │   │   └── Footer.tsx           # minimal, centered, pure black — text only, NO logo
     │   └── shared/
     │       ├── StickyCta.tsx        # mobile-only buy bar (appears after hero)
     │       └── Button.tsx           # reusable CTA button — dark scheme only
@@ -150,7 +150,8 @@ italic axis on purpose).
 
 ### HeroCanvas.tsx — Three.js ONLY
 - No text, no layout, no framer-motion
-- 200 particles, duotone orange/violet, slow drift + flicker
+- 160 particles, monochrome chrome-ash (silver tones ONLY — no orange/violet; the
+  user rejected colored sparks), slow downward fall + dim shimmer
 - WebGLRenderer creation wrapped in try/catch — a WebGL failure must never
   crash the hero island
 - Cleanup on unmount: renderer.dispose(), geometry.dispose(), material.dispose()
@@ -167,8 +168,10 @@ italic axis on purpose).
 - No JSX, no styling, no ui/ imports; target EVENT.dateISO; cleanup on unmount
 
 ### CountdownTimer.tsx — own section, not a strip
-- "La noche despierta en" serif statement left; DÍAS is the dominant oversized figure
-  right; hairline divider; horas/min/seg as a secondary right-aligned row
+- Header row: "La noche despierta en" serif statement left + technical micro-data
+  right; hairline; then FOUR EQUAL units (días/horas/min/seg — same size, same
+  importance) spanning the full width with thin vertical dividers. Compact — no
+  large empty zones
 - Digits use `.text-liquid-chrome`, AnimatePresence popLayout slide on change
 
 ### ManifestoSection.tsx
@@ -211,6 +214,8 @@ italic axis on purpose).
 - Sections own their reveals: whileInView opacity/y with ease [0.16, 1, 0.3, 1],
   viewport { once: true, margin: '-60px' }, subtle stagger
 - No scroll hijacking, no constant floating elements, nothing that delays purchase
+- Section rhythm is compact: py-16 md:py-24 (countdown py-14 md:py-20) — the user
+  asked for less empty space between sections; don't reintroduce oversized padding
 
 ---
 

@@ -28,7 +28,7 @@ export function LineupSection() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <section id="lineup" className="relative overflow-hidden bg-void py-24 md:py-36">
+    <section id="lineup" className="relative overflow-hidden bg-void py-16 md:py-24">
       <div className="relative mx-auto max-w-6xl px-6 md:px-10">
         {/* Editorial header */}
         <motion.div

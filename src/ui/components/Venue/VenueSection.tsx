@@ -27,7 +27,7 @@ export function VenueSection() {
   ];
 
   return (
-    <section id="venue" className="relative overflow-hidden bg-abyss py-24 md:py-36">
+    <section id="venue" className="relative overflow-hidden bg-abyss py-16 md:py-24">
       <motion.div
         className="relative mx-auto max-w-6xl px-6 md:px-10"
         initial="hidden"

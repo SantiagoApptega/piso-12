@@ -14,7 +14,7 @@ export function FinalCtaSection() {
   return (
     <section
       id="final-cta"
-      className="relative flex min-h-[90svh] w-full items-center overflow-hidden bg-void"
+      className="relative flex min-h-[72svh] w-full items-center overflow-hidden bg-void"
     >
       {/* Cold chrome + faint violet pools of light — no imagery, just atmosphere */}
       <div

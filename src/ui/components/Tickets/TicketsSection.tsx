@@ -116,7 +116,7 @@ function TierRow({ tier, index }: { tier: TicketTier; index: number }) {
 
 export function TicketsSection() {
   return (
-    <section id="boletas" className="relative overflow-hidden bg-void py-24 md:py-36">
+    <section id="boletas" className="relative overflow-hidden bg-void py-16 md:py-24">
       {/* Warm pool of light behind the rows — the only warm zone of the page */}
       <div
         className="pointer-events-none absolute top-[10%] left-[-25%] h-[70%] w-[60%]"
@@ -134,7 +134,7 @@ export function TicketsSection() {
         viewport={{ once: true, margin: '-60px' }}
         transition={{ staggerChildren: 0.12 }}
       >
-        <motion.div className="mb-12 md:mb-16" variants={reveal}>
+        <motion.div className="mb-8 md:mb-12" variants={reveal}>
           <p className="mb-4 font-heading text-[10px] font-light tracking-[0.45em] text-accent uppercase md:text-xs">
             Boletas
           </p>
