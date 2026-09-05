@@ -11,8 +11,8 @@ export interface Props {
 }
 
 const {
-  title = 'Ñejo El Broko en Pasto — 25 de Abril | Piso 12 Perreo',
-  description = 'Ñejo El Broko en vivo. 25 de Abril, C.E. Andino, Pasto. Boletas en mundoboletos.com',
+  title = 'Halloween en Pasto — 31 de Octubre | Piso 12',
+  description = 'Halloween en Piso 12. 31 de Octubre, C.E. Andino, Pasto. Un evento de JFW, ARKHES, GEN y Piso 12.',
   ogImage = '/images/og-cover.jpg',
   canonicalURL = Astro.url.href,
   jsonLd,
@@ -20,7 +20,7 @@ const {
 
 const eventSchema = {
   '@context': 'https://schema.org',
-  '@type': 'MusicEvent',
+  '@type': 'SocialEvent',
   name: EVENT.name,
   startDate: EVENT.dateISO,
   location: {
@@ -34,15 +34,10 @@ const eventSchema = {
       addressCountry: 'CO',
     },
   },
-  performer: {
-    '@type': 'MusicGroup',
-    name: EVENT.artist,
-  },
-  organizer: {
-    '@type': 'Organization',
-    name: EVENT.presenter,
-    telephone: EVENT.contacts[0],
-  },
+  organizer: [
+    { '@type': 'Organization', name: EVENT.presenter, telephone: EVENT.contacts[0] },
+    ...EVENT.coProducers.map((name) => ({ '@type': 'Organization', name })),
+  ],
   url: EVENT.ticketUrl,
   offers: {
     '@type': 'Offer',

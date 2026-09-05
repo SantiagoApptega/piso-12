@@ -1,95 +1,153 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ARTISTS } from '../../../domain/constants/index.js';
 import type { Artist } from '../../../domain/entities/index.js';
 import { LINEUP_ARTIST_PLACEHOLDER_IMAGE } from '../../../lib/constants.js';
-import { HeadlinerSpotlight } from './HeadlinerSpotlight.js';
-import { SectionHeading } from '../shared/SectionHeading.js';
-import { SectionWrapper } from '../shared/SectionWrapper.js';
 
-const gridVariants = {
+const HEAVY_EASE = [0.16, 1, 0.3, 1] as const;
+
+const listVariants = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
-  },
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 } as const;
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
-  },
+const rowVariants = {
+  hidden: { opacity: 0, y: 34 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: HEAVY_EASE } },
 } as const;
 
-function GuestCard({ artist }: { artist: Artist }) {
-  const isGuest = artist.role === 'guest';
-  const imageSrc = artist.imageUrl ?? LINEUP_ARTIST_PLACEHOLDER_IMAGE;
+function artistImage(artist: Artist): string {
+  return artist.imageUrl ?? LINEUP_ARTIST_PLACEHOLDER_IMAGE;
+}
 
-  return (
-    <motion.article
-      className="relative overflow-hidden"
-      style={{ aspectRatio: '4/5' }}
-      whileHover={{ scale: 1.04, y: -6 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <img
-        src={imageSrc}
-        alt={artist.name}
-        width={400}
-        height={500}
-        className="absolute inset-0 h-full w-full object-cover asset-multiply"
-      />
-
-      {isGuest && (
-        <div className="absolute top-3 right-3 bg-accent px-2 py-1 font-heading text-[9px] leading-none tracking-[0.2em] text-accent-foreground uppercase">
-          Artista Invitado
-        </div>
-      )}
-
-      <div className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-void/90 to-transparent px-3 pt-10 pb-3">
-        <h3 className="font-heading text-sm font-black tracking-[0.06em] text-foreground-dark uppercase leading-none md:text-base">
-          {artist.name}
-        </h3>
-        <p className="font-heading mt-1 text-[9px] tracking-[0.25em] text-chrome uppercase">
-          {isGuest ? 'Artista Invitado' : 'DJ'}
-        </p>
-      </div>
-    </motion.article>
-  );
+function roleLabel(artist: Artist): string {
+  return artist.role === 'guest' ? 'Artista Invitado' : 'DJ Set';
 }
 
 export function LineupSection() {
-  const headliner = ARTISTS.find((a) => a.role === 'headliner');
-  const support = ARTISTS.filter((a) => a.role !== 'headliner');
+  const [active, setActive] = useState<number | null>(null);
 
   return (
-    <SectionWrapper id="lineup" className="bg-surface-light px-0 pb-0">
-      {headliner ? <HeadlinerSpotlight artist={headliner} /> : null}
-
-      {/* <div className="mx-auto max-w-5xl px-6 pt-8 md:pt-10"> 
-        <SectionHeading
-          label="Lineup"
-          title="Artistas"
-          scheme="light"
-          as="h3"
-          className="mb-6 md:mb-8"
-        />
-
+    <section id="lineup" className="relative overflow-hidden bg-void py-24 md:py-36">
+      <div className="relative mx-auto max-w-6xl px-6 md:px-10">
+        {/* Editorial header */}
         <motion.div
-          className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4"
-          variants={gridVariants}
-          initial="hidden"
-          whileInView="show"
+          className="mb-14 flex items-end gap-6 md:mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: HEAVY_EASE }}
           viewport={{ once: true, margin: '-60px' }}
         >
-          {support.map((artist) => (
-            <motion.div key={artist.name} variants={cardVariants}>
-              <GuestCard artist={artist} />
-            </motion.div>
-          ))}
+          <h2
+            className="font-display italic leading-[0.9] text-foreground-dark"
+            style={{ fontSize: 'clamp(48px, 9vw, 120px)' }}
+          >
+            Line
+            <span className="text-chrome-dim">—</span>up
+          </h2>
+          <span className="hairline mb-4 hidden flex-1 md:block" aria-hidden="true" />
+          <p className="mb-3 hidden font-heading text-[10px] font-light tracking-[0.4em] text-chrome-dim uppercase md:block">
+            Cabina · 31.10.26
+          </p>
         </motion.div>
-      </div>*/}
-    </SectionWrapper>
+
+        <div className="relative grid gap-0 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+          {/* The list */}
+          <motion.ol
+            className="relative z-1"
+            variants={listVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+            onMouseLeave={() => setActive(null)}
+          >
+            {ARTISTS.map((artist, i) => {
+              const isActive = active === i;
+              return (
+                <motion.li key={artist.name} variants={rowVariants}>
+                  <div
+                    className="group flex cursor-default items-baseline gap-5 py-5 transition-colors duration-300 md:gap-8 md:py-7"
+                    style={{ borderBottom: '1px solid var(--color-border-dark)' }}
+                    onMouseEnter={() => setActive(i)}
+                    onFocus={() => setActive(i)}
+                  >
+                    <span
+                      className={`font-heading text-xs font-light tabular-nums tracking-[0.3em] transition-colors duration-300 md:text-sm ${
+                        isActive ? 'text-accent' : 'text-chrome-dim'
+                      }`}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+
+                    <h3
+                      className={`font-heading font-semibold uppercase leading-none transition-all duration-300 ${
+                        isActive ? 'text-liquid-chrome' : 'text-foreground-dark'
+                      }`}
+                      style={{
+                        fontSize: 'clamp(34px, 7vw, 72px)',
+                        letterSpacing: '0.02em',
+                        textShadow: isActive ? '0 0 42px rgba(200,200,212,0.25)' : 'none',
+                      }}
+                    >
+                      {artist.name}
+                    </h3>
+
+                    <span className="ml-auto hidden font-heading text-[10px] font-light tracking-[0.35em] text-chrome-dim uppercase md:inline">
+                      {roleLabel(artist)}
+                    </span>
+                  </div>
+                </motion.li>
+              );
+            })}
+          </motion.ol>
+
+          {/* Portrait reveal — desktop only, floats to the right of the list */}
+          <div
+            className="pointer-events-none relative hidden items-center justify-end md:flex"
+            aria-hidden="true"
+          >
+            <div
+              className="relative w-[78%] max-w-[360px] overflow-hidden"
+              style={{ aspectRatio: '4 / 5', border: '1px solid var(--color-border-dark)' }}
+            >
+              <AnimatePresence mode="wait">
+                {active !== null ? (
+                  <motion.img
+                    key={ARTISTS[active].name}
+                    src={artistImage(ARTISTS[active])}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{ filter: 'grayscale(85%) contrast(1.1) brightness(0.85)' }}
+                    initial={{ opacity: 0, scale: 1.06 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.45, ease: HEAVY_EASE }}
+                  />
+                ) : (
+                  <motion.div
+                    key="idle"
+                    className="absolute inset-0 flex items-center justify-center bg-surface-dark"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.45 }}
+                  >
+                    <span className="font-heading text-[10px] font-light tracking-[0.5em] text-chrome-dim uppercase">
+                      Noche Macabra
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background: 'linear-gradient(to top, rgba(5,5,5,0.55) 0%, transparent 45%)',
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

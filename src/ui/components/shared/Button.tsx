@@ -6,7 +6,6 @@ export interface ButtonProps {
   onClick?: () => void;
   variant?: 'primary' | 'secondary' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
-  scheme?: 'dark' | 'light';
   isDisabled?: boolean;
   target?: '_blank' | '_self';
   rel?: string;
@@ -14,22 +13,14 @@ export interface ButtonProps {
   'aria-label'?: string;
 }
 
-const VARIANT_CLASSES: Record<
-  NonNullable<ButtonProps['variant']>,
-  Record<NonNullable<ButtonProps['scheme']>, string>
-> = {
-  primary: {
-    dark: 'bg-accent text-accent-foreground font-black hover:opacity-90 focus:ring-accent active:scale-95',
-    light: 'bg-accent text-accent-foreground font-black hover:opacity-90 focus:ring-accent active:scale-95',
-  },
-  secondary: {
-    dark: 'border border-chrome text-foreground-dark hover:border-foreground-dark hover:text-foreground-dark focus:ring-chrome active:scale-95',
-    light: 'border border-foreground-light/30 text-foreground-light hover:border-foreground-light focus:ring-foreground-light/30 active:scale-95',
-  },
-  ghost: {
-    dark: 'text-chrome hover:text-foreground-dark focus:ring-chrome active:scale-95',
-    light: 'text-foreground-light/60 hover:text-foreground-light focus:ring-foreground-light/30 active:scale-95',
-  },
+/* Single dark scheme — the whole page lives on black */
+const VARIANT_CLASSES: Record<NonNullable<ButtonProps['variant']>, string> = {
+  primary:
+    'bg-accent text-accent-foreground font-semibold hover:opacity-90 focus:ring-accent active:scale-95',
+  secondary:
+    'border border-chrome-dim text-foreground-dark hover:border-chrome hover:text-foreground-dark focus:ring-chrome active:scale-95',
+  ghost:
+    'text-chrome hover:text-foreground-dark focus:ring-chrome active:scale-95',
 };
 
 const SIZE_CLASSES: Record<NonNullable<ButtonProps['size']>, string> = {
@@ -44,24 +35,16 @@ export function Button({
   onClick,
   variant = 'primary',
   size = 'md',
-  scheme = 'dark',
   isDisabled = false,
   target,
   rel,
   className = '',
   'aria-label': ariaLabel,
 }: ButtonProps) {
-  const ringOffset =
-    scheme === 'dark' ? 'focus:ring-offset-void' : 'focus:ring-offset-background';
+  const baseClasses =
+    'inline-flex items-center justify-center font-heading uppercase transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-void disabled:opacity-40 disabled:pointer-events-none min-h-[44px]';
 
-  const baseClasses = `inline-flex items-center justify-center font-heading font-700 uppercase transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${ringOffset} disabled:opacity-40 disabled:pointer-events-none min-h-[44px]`;
-
-  const classes = [
-    baseClasses,
-    VARIANT_CLASSES[variant][scheme],
-    SIZE_CLASSES[size],
-    className,
-  ].join(' ');
+  const classes = [baseClasses, VARIANT_CLASSES[variant], SIZE_CLASSES[size], className].join(' ');
 
   if (href) {
     return (

@@ -1,32 +1,36 @@
 ---
 import Layout from '../ui/layouts/Layout.astro';
 import { HeroSection } from '../ui/components/Hero/HeroSection.js';
-import { MarqueeStrip } from '../ui/components/shared/MarqueeStrip.js';
 import { CountdownTimer } from '../ui/components/Countdown/CountdownTimer.js';
+import { ManifestoSection } from '../ui/components/Manifesto/ManifestoSection.js';
 import { LineupSection } from '../ui/components/Lineup/LineupSection.js';
+import { ExperiencesSection } from '../ui/components/Experiences/ExperiencesSection.js';
 import { TicketsSection } from '../ui/components/Tickets/TicketsSection.js';
-import { SpotifySection } from '../ui/components/Spotify/SpotifySection.js';
 import { VenueSection } from '../ui/components/Venue/VenueSection.js';
+import { FinalCtaSection } from '../ui/components/FinalCta/FinalCtaSection.js';
 import { Footer } from '../ui/components/Footer/Footer.js';
+import { StickyCta } from '../ui/components/shared/StickyCta.js';
 ---
 
 <Layout>
   <main>
-    <!-- Hero: Three.js + video — client:only to avoid SSR -->
+    <!-- 1. Cinematic hero: Three.js + video — client:only to avoid SSR -->
     <HeroSection client:only="react" />
 
-    <!-- Marquee ticker — pure CSS, no state needed -->
-    <MarqueeStrip client:load />
-
-    <!-- Countdown: needs runtime Date, stays dark -->
+    <!-- 2. Countdown: needs runtime Date -->
     <CountdownTimer client:only="react" />
 
-    <!-- Light sections — hydrate on scroll -->
+    <!-- 3–8. Dark editorial flow — hydrate on scroll -->
+    <ManifestoSection client:visible />
     <LineupSection client:visible />
+    <ExperiencesSection client:visible />
     <TicketsSection client:visible />
-    <SpotifySection client:visible />
     <VenueSection client:visible />
+    <FinalCtaSection client:visible />
   </main>
 
   <Footer client:visible />
+
+  <!-- Mobile sticky buy bar — needs scroll position from the start -->
+  <StickyCta client:idle />
 </Layout>

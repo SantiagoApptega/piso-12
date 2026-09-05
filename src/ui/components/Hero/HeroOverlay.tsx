@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Button } from '../shared/Button.js';
-import { EVENT } from '../../../domain/constants/index.js';
+import { EVENT, PRESENTED_BY_LINE } from '../../../domain/constants/index.js';
 
 /** Multi-layer halo so light text reads on chrome / bright video */
 const SHADOW_DISPLAY = {
@@ -21,18 +21,17 @@ const SHADOW_DETAIL = {
 const HEAVY_EASE = [0.16, 1, 0.3, 1] as const;
 
 // The outermost wrapper controls ALL opacity — nothing is visible before the delay fires.
-// Children only animate their y/scale position so the stagger is visible; fading is parent-driven.
+// Children only animate their y position so the stagger is visible; fading is parent-driven.
 const containerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.22,
-      delayChildren: 1.5, // children start same moment the parent fade begins
+      staggerChildren: 0.2,
+      delayChildren: 1.5,
     },
   },
 } as const;
 
-// Y-only stagger — no per-child opacity (parent handles the fade as one unit)
 const itemUp = {
   hidden: { y: 32 },
   show: { y: 0, transition: { duration: 1.4, ease: HEAVY_EASE } },
@@ -52,117 +51,132 @@ function heroDateShort(): string {
   return EVENT.date.split('—')[0]?.trim() ?? EVENT.date;
 }
 
+function heroTime(): string {
+  return (EVENT.date.split('—')[1] ?? '').replace(/\s*COT$/, '').trim();
+}
+
 export function HeroOverlay() {
   return (
     /**
-     * Single motion root — starts fully transparent, fades in at 1.5s.
-     * This means: video plays clean for 1.5s, then backdrop + text appear together.
-     * The stagger is visible through the y-slide of each element.
+     * Single motion root — video plays clean for 1.5s, then everything fades in
+     * as one cinematic unit. Corners carry the technical data; the center only
+     * holds the title and the CTA so the sculpture can breathe behind it.
      */
     <motion.div
-      className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center pointer-events-none"
+      className="pointer-events-none absolute inset-0 z-10 flex flex-col"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 1.5, duration: 0.9, ease: HEAVY_EASE }}
     >
-      {/* Viñeta global suave */}
+      {/* Cinematic edge vignettes — top / bottom bars of darkness */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 92% 78% at 50% 48%, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.06) 48%, transparent 68%)',
-        }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-40"
+        style={{ background: 'linear-gradient(to bottom, rgba(5,5,5,0.85), transparent)' }}
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-56"
+        style={{ background: 'linear-gradient(to top, rgba(5,5,5,0.92), transparent)' }}
         aria-hidden="true"
       />
 
-      {/* Stagger timing container */}
       <motion.div
-        className="relative z-1 w-full max-w-4xl pointer-events-none"
+        className="relative z-1 flex h-full w-full flex-col"
         variants={containerVariants}
         initial="hidden"
         animate="show"
       >
-        {/* Halo ancho */}
-        <div
-          className="pointer-events-none absolute top-1/2 left-1/2 z-0 w-[min(178vw,1040px)] max-w-[1040px] -translate-x-1/2 -translate-y-1/2"
-          style={{
-            height: 'min(96vh, 820px)',
-            background:
-              'radial-gradient(ellipse 80% 100% at 50% 50%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.36) 38%, rgba(0,0,0,0.18) 54%, rgba(0,0,0,0.07) 68%, transparent 86%)',
-            filter: 'blur(48px)',
-          }}
-          aria-hidden="true"
-        />
-        {/* Núcleo */}
-        <div
-          className="pointer-events-none absolute top-1/2 left-1/2 z-0 w-[min(142vw,820px)] max-w-[820px] -translate-x-1/2 -translate-y-1/2"
-          style={{
-            height: 'min(84vh, 680px)',
-            background:
-              'radial-gradient(ellipse 60% 100% at 50% 50%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.78) 16%, rgba(0,0,0,0.52) 32%, rgba(0,0,0,0.26) 48%, rgba(0,0,0,0.1) 62%, transparent 82%)',
-            filter: 'blur(24px)',
-          }}
-          aria-hidden="true"
-        />
-        {/* Refuerzo superior */}
-        <div
-          className="pointer-events-none absolute top-1/2 left-1/2 z-0 w-[min(120vw,700px)] max-w-[700px] -translate-x-1/2 -translate-y-1/2"
-          style={{
-            height: 'min(64vh, 520px)',
-            background:
-              'radial-gradient(ellipse 10% 100% at 50% 42%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 40%, transparent 72%)',
-            filter: 'blur(18px)',
-          }}
-          aria-hidden="true"
-        />
+        {/* ── Top: producers, tiny, centered ── */}
+        <motion.p
+          className="pt-7 text-center font-heading text-[10px] font-light tracking-[0.42em] text-chrome uppercase md:pt-9 md:text-xs"
+          style={SHADOW_DETAIL}
+          variants={itemUp}
+        >
+          {PRESENTED_BY_LINE}
+        </motion.p>
 
-        <div className="relative z-1 px-2">
-          <motion.p
-            className="mb-4 font-heading text-xs tracking-[0.3em] text-chrome uppercase md:text-sm"
-            style={SHADOW_DETAIL}
-            variants={itemUp}
-          >
-            {EVENT.presenter} presenta
-          </motion.p>
+        {/* ── Center: title block ── */}
+        <div className="flex flex-1 flex-col items-center justify-center px-5 text-center">
+          {/* Soft dark core so the title reads over the bright sculpture */}
+          <div className="relative w-full max-w-5xl">
+            <div
+              className="pointer-events-none absolute top-1/2 left-1/2 z-0 h-[min(70vh,560px)] w-[min(150vw,900px)] -translate-x-1/2 -translate-y-1/2"
+              style={{
+                background:
+                  'radial-gradient(ellipse 62% 90% at 50% 50%, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 34%, rgba(0,0,0,0.2) 56%, transparent 80%)',
+                filter: 'blur(28px)',
+              }}
+              aria-hidden="true"
+            />
 
-          <motion.h1
-            className="font-display text-foreground-dark italic leading-none"
-            style={{ fontSize: 'clamp(72px, 17vw, 200px)', ...SHADOW_DISPLAY }}
-            variants={itemHero}
-          >
-            Ñejo
-          </motion.h1>
+            <div className="relative z-1">
+              <motion.h1
+                className="font-display text-foreground-dark italic leading-[0.95]"
+                style={{ fontSize: 'clamp(52px, 13vw, 168px)', ...SHADOW_DISPLAY }}
+                variants={itemHero}
+              >
+                HALLOWEEN
+              </motion.h1>
 
-          <motion.p
-            className="font-heading font-black tracking-[0.2em] text-foreground-dark uppercase leading-none"
-            style={{ fontSize: 'clamp(20px, 5vw, 56px)', ...SHADOW_HEADING }}
-            variants={itemUp}
-          >
-            El Broko
-          </motion.p>
+              <motion.div
+                className="mx-auto mt-3 flex max-w-xl items-center gap-4 md:mt-5"
+                variants={itemUp}
+                aria-hidden="true"
+              >
+                <span className="hairline flex-1" />
+                <span
+                  className="font-heading text-sm font-medium tracking-[0.5em] text-foreground-dark uppercase md:text-xl"
+                  style={SHADOW_HEADING}
+                >
+                  Noche&nbsp;Macabra
+                </span>
+                <span className="hairline flex-1" />
+              </motion.div>
 
-          <motion.div
-            className="mt-6 space-y-1 text-center font-body text-xs font-light tracking-[0.25em] text-chrome uppercase md:text-sm"
-            style={SHADOW_DETAIL}
-            variants={itemUp}
-          >
-            <p className="leading-snug">Pasto - {heroDateShort()}</p>
-            <p className="leading-snug">{EVENT.venue}</p>
-          </motion.div>
-
-          <motion.div className="mt-10 pointer-events-auto" variants={itemBtn}>
-            <Button
-              href={EVENT.ticketUrl}
-              target="_blank"
-              variant="primary"
-              size="lg"
-              scheme="dark"
-              aria-label="Comprar boletas para Ñejo El Broko en Pasto"
-            >
-              Comprar boletas
-            </Button>
-          </motion.div>
+              <motion.div className="mt-10 pointer-events-auto md:mt-12" variants={itemBtn}>
+                <Button
+                  href={EVENT.ticketUrl}
+                  target="_blank"
+                  variant="primary"
+                  size="lg"
+                  aria-label="Comprar boletas para Halloween en Pasto"
+                >
+                  Comprar boletas
+                </Button>
+              </motion.div>
+            </div>
+          </div>
         </div>
+
+        {/* ── Bottom: technical data left / scroll cue center / time right ── */}
+        <motion.div
+          className="flex items-end justify-between gap-4 px-5 pb-6 md:px-10 md:pb-8"
+          style={SHADOW_DETAIL}
+          variants={itemUp}
+        >
+          <div className="space-y-1 text-left font-heading text-[10px] font-light tracking-[0.3em] text-chrome uppercase md:text-xs">
+            <p className="text-foreground-dark">{heroDateShort()}</p>
+            <p>Pasto</p>
+            <p>{EVENT.venue}</p>
+          </div>
+
+          <div className="hidden flex-col items-center gap-2 pb-1 md:flex" aria-hidden="true">
+            <span className="font-heading text-[9px] font-light tracking-[0.5em] text-chrome-dim uppercase">
+              Scroll
+            </span>
+            <span className="relative block h-12 w-px overflow-hidden bg-chrome/15">
+              <span
+                className="absolute left-0 h-full w-full bg-chrome/70"
+                style={{ animation: 'scroll-cue 2.6s cubic-bezier(0.16,1,0.3,1) infinite' }}
+              />
+            </span>
+          </div>
+
+          <div className="space-y-1 text-right font-heading text-[10px] font-light tracking-[0.3em] text-chrome uppercase md:text-xs">
+            <p className="text-foreground-dark">{heroTime()}</p>
+            <p>{EVENT.ageRestriction}</p>
+          </div>
+        </motion.div>
       </motion.div>
     </motion.div>
   );

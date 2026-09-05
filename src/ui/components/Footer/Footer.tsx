@@ -5,29 +5,28 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className="bg-void px-6 py-10 md:py-12"
-      style={{ borderTop: '1px solid var(--color-border-dark)' }}
-    >
-      <div className="max-w-5xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex flex-col items-center gap-2 md:items-start">
-            <img
-              src="/assets/brand/logo.webp"
-              alt="Piso 12 Perreo"
-              width={360}
-              height={140}
-              className="asset-screen h-auto w-[min(220px,78vw)] max-w-full object-contain object-left md:w-[260px]"
-            />
-          </div>
-          {/* Contact */}
+    <footer className="bg-void px-6 pt-20 pb-10 md:px-10 md:pt-28 md:pb-12">
+      <div className="mx-auto max-w-6xl">
+        {/* Producers — small, centered, lots of air */}
+        <div className="flex flex-col items-center gap-6">
+          <img
+            src="/assets/brand/logo.webp"
+            alt="Piso 12"
+            width={360}
+            height={140}
+            className="asset-screen h-auto w-[min(170px,60vw)] object-contain"
+          />
+          <p className="font-heading text-[10px] font-light tracking-[0.45em] text-chrome-dim uppercase">
+            {EVENT.coProducers.join(' · ')} · {EVENT.presenter}
+          </p>
+
           <nav aria-label="Contacto">
-            <ul className="flex flex-col items-center md:items-end gap-2">
+            <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
               {EVENT.contacts.map((phone) => (
                 <li key={phone}>
                   <a
                     href={`tel:${phone.replace(/-/g, '')}`}
-                    className="font-body text-sm text-chrome hover:text-foreground-dark transition-colors duration-200 focus:outline-none focus-visible:underline"
+                    className="font-body text-xs font-light tracking-wide text-chrome transition-colors duration-200 hover:text-foreground-dark focus:outline-none focus-visible:underline"
                     aria-label={`Llamar al ${phone}`}
                   >
                     {phone}
@@ -38,25 +37,21 @@ export function Footer() {
           </nav>
         </div>
 
-        <div
-          className="mt-8 flex flex-col items-center gap-6 pt-4"
-          style={{ borderTop: '1px solid var(--color-border-dark)' }}
-        >
-          <div className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-center font-body text-xs font-light text-chrome md:text-left">
-              © {currentYear} . Todos los derechos reservados.
-            </p>
-            <p className="text-center font-body text-xs font-light text-chrome md:text-right">
-              Pasto, Nariño — Colombia
-            </p>
-          </div>
-          <p className="text-center font-body text-[10px] font-light tracking-[0.28em] text-chrome/55 uppercase">
+        <div className="hairline mt-16 md:mt-20" aria-hidden="true" />
+
+        {/* Legal line */}
+        <div className="mt-8 flex flex-col items-center gap-3 text-center">
+          <p className="font-body text-[11px] font-light tracking-wide text-chrome-dim">
+            © {currentYear} — Todos los derechos reservados · Pasto, Nariño — Colombia ·{' '}
+            {EVENT.ageRestriction}
+          </p>
+          <p className="font-heading text-[9px] font-light tracking-[0.4em] text-chrome-dim/70 uppercase">
             Desarrollado por{' '}
             <a
               href={PASSTIX_CREDIT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-heading text-chrome transition-colors duration-200 hover:text-foreground-dark focus-visible:underline focus:outline-none"
+              className="text-chrome transition-colors duration-200 hover:text-foreground-dark focus:outline-none focus-visible:underline"
             >
               PASSTIX
             </a>

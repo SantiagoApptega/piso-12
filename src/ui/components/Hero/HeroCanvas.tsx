@@ -3,10 +3,11 @@ import * as THREE from 'three';
 
 const COUNT = 200;
 
-// #EEEEF5 normalized
-const BASE_R = 238 / 255;
-const BASE_G = 238 / 255;
-const BASE_B = 245 / 255;
+// #E85D04 (pumpkin orange) and #7C3AED (eerie violet), normalized
+const PALETTE = [
+  [232 / 255, 93 / 255, 4 / 255],
+  [124 / 255, 58 / 255, 237 / 255],
+] as const;
 
 export function HeroCanvas() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -18,7 +19,14 @@ export function HeroCanvas() {
     const w = mount.clientWidth;
     const h = mount.clientHeight;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    // If WebGL is unavailable (old device / blocked context), skip particles
+    // silently instead of crashing the whole hero island.
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    } catch {
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(w, h);
     renderer.setClearColor(0x000000, 0);
@@ -40,16 +48,24 @@ export function HeroCanvas() {
     const baseBright   = new Float32Array(COUNT);
     const flickPhase   = new Float32Array(COUNT);
     const flickSpeed   = new Float32Array(COUNT);
+    const baseR        = new Float32Array(COUNT);
+    const baseG        = new Float32Array(COUNT);
+    const baseB        = new Float32Array(COUNT);
 
     for (let i = 0; i < COUNT; i++) {
       positions[i * 3]     = (Math.random() - 0.5) * halfW * 2;
       positions[i * 3 + 1] = (Math.random() - 0.5) * halfH * 2;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 3;
 
+      const [pr, pg, pb] = PALETTE[i % 2];
+      baseR[i] = pr;
+      baseG[i] = pg;
+      baseB[i] = pb;
+
       baseBright[i]  = 0.30 + Math.random() * 0.70;   // 0.30 – 1.00
-      colors[i * 3]     = BASE_R * baseBright[i];
-      colors[i * 3 + 1] = BASE_G * baseBright[i];
-      colors[i * 3 + 2] = BASE_B * baseBright[i];
+      colors[i * 3]     = baseR[i] * baseBright[i];
+      colors[i * 3 + 1] = baseG[i] * baseBright[i];
+      colors[i * 3 + 2] = baseB[i] * baseBright[i];
 
       velY[i]       = 0.004 + Math.random() * 0.007;  // very slow rise
       velX[i]       = (Math.random() - 0.5) * 0.0025; // gentle horizontal drift
@@ -96,9 +112,9 @@ export function HeroCanvas() {
         // Slow brightness flicker: 70% base + 30% sine
         const flicker = 0.70 + 0.30 * Math.sin(t * flickSpeed[i] + flickPhase[i]);
         const b = baseBright[i] * flicker;
-        colors[i * 3]     = BASE_R * b;
-        colors[i * 3 + 1] = BASE_G * b;
-        colors[i * 3 + 2] = BASE_B * b;
+        colors[i * 3]     = baseR[i] * b;
+        colors[i * 3 + 1] = baseG[i] * b;
+        colors[i * 3 + 2] = baseB[i] * b;
       }
 
       posAttr.needsUpdate = true;

@@ -44,7 +44,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <header className="relative h-[50vh] w-full overflow-hidden bg-void md:h-screen">
+    <header id="hero" className="relative h-[100svh] min-h-[560px] w-full overflow-hidden bg-void">
       {/* Full-bleed: cover fills width + height (may crop sides on narrow portrait) */}
       <video
         ref={videoRef}

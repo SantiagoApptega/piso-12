@@ -1,7 +1,7 @@
 export interface Event {
   name: string;
-  artist: string;
   presenter: string;
+  coProducers: string[];
   date: string;
   dateISO: string;
   venue: string;
@@ -16,8 +16,13 @@ export interface Event {
 
 export interface Artist {
   name: string;
-  role: 'headliner' | 'guest' | 'dj';
+  role: 'guest' | 'dj';
   imageUrl?: string;
+}
+
+export interface CostumeCategory {
+  title: string;
+  description: string;
 }
 
 export interface TicketPricing {

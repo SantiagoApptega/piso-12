@@ -1,23 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Barlow:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Oswald:wght@300..700&family=Barlow:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-void: #060608;
-  --color-surface-dark: #0E0E12;
-  --color-background: #FFFFFF;
-  --color-surface-light: #F5F5F5;
-  --color-foreground-dark: #EEEEF5;
-  --color-foreground-light: #0A0A0A;
-  --color-accent: #E8173A;
-  --color-accent-foreground: #FFFFFF;
+  /* Near-black ladder — sections separate by light, never by white blocks */
+  --color-void: #050505;
+  --color-abyss: #080808;
+  --color-surface-dark: #0D0D0D;
+
+  --color-foreground-dark: #F2F2F0;
+
+  /* Orange = action only (CTA + micro details) */
+  --color-accent: #E85D04;
+  --color-accent-foreground: #0A0A0A;
+
+  /* Eerie violet — particles / secondary glows only */
+  --color-accent-secondary: #7C3AED;
+  --color-accent-secondary-foreground: #FFFFFF;
+
+  /* Metallic greys */
   --color-chrome: #C8C8D4;
   --color-chrome-dim: #8A8A96;
-  --color-border-dark: rgba(200, 200, 212, 0.12);
-  --color-border-light: rgba(0, 0, 0, 0.1);
+  --color-border-dark: rgba(200, 200, 212, 0.1);
 
   --font-display: 'Playfair Display', serif;
-  /* Outfit: legible at bold/black weights (replaces Barlow Condensed for UI type) */
-  --font-heading: 'Outfit', system-ui, sans-serif;
+  /* Oswald: condensed bold — info, labels, prices, secondary headlines */
+  --font-heading: 'Oswald', system-ui, sans-serif;
   --font-body: 'Barlow', sans-serif;
 }
 
@@ -45,7 +52,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-chrome);
+  background: var(--color-chrome-dim);
   border-radius: 2px;
 }
 
@@ -58,9 +65,34 @@ body {
   mix-blend-mode: screen;
 }
 
-/* Assets on light backgrounds — black bg becomes transparent */
-.asset-multiply {
-  mix-blend-mode: multiply;
+/* Liquid-chrome text — silver gradient clipped to glyphs */
+.text-liquid-chrome {
+  background: linear-gradient(
+    168deg,
+    #f4f4f6 0%,
+    #c8c8d4 26%,
+    #6e6e78 48%,
+    #e8e8ec 62%,
+    #8a8a96 82%,
+    #d4d4dc 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Ultra-thin chrome divider */
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-border-dark) 18%,
+    rgba(200, 200, 212, 0.32) 50%,
+    var(--color-border-dark) 82%,
+    transparent 100%
+  );
 }
 
 /* Hero background video: reduce native play overlay on iOS/WebKit when autoplay runs */
@@ -72,10 +104,11 @@ body {
   display: none !important;
 }
 
-/* ─── Marquee ticker ─────────────────────────────────────────────────── */
-@keyframes marquee-x {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* ─── Scroll cue — thin falling line inside a track ─────────────────────── */
+@keyframes scroll-cue {
+  0%   { transform: translateY(-100%); }
+  55%  { transform: translateY(100%); }
+  100% { transform: translateY(100%); }
 }
 
 /* ─── Film grain overlay ─────────────────────────────────────────────── */
